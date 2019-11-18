@@ -50,8 +50,7 @@
                         <td>{{ $no++ }}</td>
                         <td>{{ $item->job_type }}</td>
                         <td colspan="3" align="center">
-                            <a href="" class="btn btn-primary"><i class="fa fa-eye"></i></a> |
-                            <a href="" class="btn btn-info"><i class="fa fa-eye"></i></a> |
+                            <a href="{{ route('tipejob.edit',$item->id) }}" class="btn btn-info"><i class="fa fa-eye"></i></a> |
                             <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
                         </td>
                     </tr>
@@ -77,7 +76,9 @@
             <div class="modal-body">
               <form action="{{ route('tipejob.store') }}" method="post">
                   @csrf
-                  @include('admin.tipejob._form')
+                  @include('admin.tipejob._form', [
+                    'tipejob' => new \App\JobType,
+                  ])
               </form>
             </div>
           </div>

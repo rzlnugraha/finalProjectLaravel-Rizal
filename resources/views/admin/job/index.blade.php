@@ -58,7 +58,7 @@
                     <td>
                       <ul class="list-inline">
                         <li class="list-inline-item"><a href="{{ route('jobs.show',$item->id) }}" class="btn btn-primary"><i class="fa fa-eye"></i></a></li>
-                        <li class="list-inline-item"><a href="" class="btn btn-info"><i class="fa fa-edit"></i></a></li>
+                        <li class="list-inline-item"><a href="{{ route('jobs.edit',$item->id) }}" class="btn btn-info"><i class="fa fa-edit"></i></a></li>
                         <li class="list-inline-item">
                           <form action="{{ route('jobs.destroy',$item->id) }}" method="post">
                               @csrf @method('DELETE')

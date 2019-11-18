@@ -49,9 +49,9 @@ class TipeJobController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(JobType $tipejob)
     {
-        //
+        
     }
 
     /**
@@ -60,9 +60,9 @@ class TipeJobController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(JobType $tipejob)
     {
-        //
+        return view('admin.tipejob.edit', compact('tipejob'));
     }
 
     /**

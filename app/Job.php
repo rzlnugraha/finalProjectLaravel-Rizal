@@ -15,4 +15,13 @@ class Job extends Model
     {
         return $this->belongsTo(JobType::class, 'tipe_job');
     }
+
+    public function foto()
+    {
+        if (file_exists(public_path() . '/images/job/' . $this->foto_perusahaan) && $this->foto_perusahaan != null) {
+            return '/images/job/' . $this->foto_perusahaan;
+        } else {
+            return url('/img/afe.png');
+        }
+    }
 }

@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         view()->composer('admin.job._form', function ($view) {
-            $view->with('tipe_job', JobType::all());
+            $view->with('tipe_job', JobType::query());
         });
     }
 }

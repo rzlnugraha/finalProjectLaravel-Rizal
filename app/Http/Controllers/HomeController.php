@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Sentinel, Alert;
 
 class HomeController extends Controller
 {
@@ -11,11 +12,6 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth.sentinel');
-    }
-
     /**
      * Show the application dashboard.
      *
@@ -23,7 +19,17 @@ class HomeController extends Controller
      */
     public function awal()
     {
-        return view('welcome');
+        if ($user = Sentinel::check()) {
+            Alert::success("Kamu sedang login mang $user->email", 'Udah login');
+            if (Sentinel::getUser()->roles()->first()->slug == 'admin') {
+                return redirect()->route('admin.index');
+            } else {
+                return redirect()->route('visitor.index');
+            }
+        } else {
+            return view('welcome');
+        }
+        
     }
     public function index()
     {

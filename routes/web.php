@@ -32,7 +32,7 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth.sentinel','hasUser']], 
     Route::put('/visitor.profile.update/{id}', 'VisitorController@update')->name('biodata.update');
 });
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('auth.sentinel');
 Route::get('signup','SentinelController@signup')->name('signup');
 Route::post('signup_store','SentinelController@signup_store')->name('signup.store');
 Route::get('signin', 'SentinelController@login')->name('signin');

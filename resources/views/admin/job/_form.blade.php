@@ -4,8 +4,8 @@
         <div class="form-group">
             <label>Jenis Pekerjaan</label>
             <select class="form-control {{ $errors->has('tipe_job') ? 'is-invalid' : '' }}" name="tipe_job">
-                <option value="">Pilih</option>
-                @foreach ($tipe_job as $item)
+                <option value="" selected>Pilih</option>
+                @foreach ($tipe_job->get() as $item)
                 <option value="{{ $item->id }}">{{ $item->job_type }}</option>
                 @endforeach
             </select>
@@ -66,7 +66,7 @@
 <div class="col-sm-12">
     <div class="form-group">
     <label>Foto Perusahaan</label>
-    <input type="file" name="foto_perusahaan" id="foto_perusahaan" class="form-control {{ $errors->has('foto_perusahaan') ? 'is-invalid' : '' }}" value="">
+    <input type="file" name="foto_perusahaan" id="foto_perusahaan" class="form-control {{ $errors->has('foto_perusahaan') ? 'is-invalid' : '' }}" {{ empty($job->foto_perusahaan) ? 'required' : '' }}>
     {!! $errors->first('foto_perusahaan','<span class="invalid-feedback">:message</span>') !!}
     </div>
 </div>
