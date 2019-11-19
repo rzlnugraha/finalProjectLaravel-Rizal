@@ -72,11 +72,14 @@ class TipeJobController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TipeJobRequest $request, $id)
     {
-        //
+        $tipejob = JobType::findOrFail($id);
+        $tipejob->update($request->all());
+        Alert::success('Berhasil merubah data','Success');
+        return redirect()->route('tipejob.index');
     }
-
+    
     /**
      * Remove the specified resource from storage.
      *
@@ -85,6 +88,15 @@ class TipeJobController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $tipejob = JobType::findOrFail($id);
+        $data = count($tipejob->jobs()->get());
+        if ($data > 0) {
+            Alert::error('Tidak bisa dihapus karena tipe pekerjaan ini memiliki data','Error');
+            return back();
+        } else {
+            $tipejob->delete();
+            Alert::success('Berhasil menghapus data','Success');
+            return back();
+        }
     }
 }

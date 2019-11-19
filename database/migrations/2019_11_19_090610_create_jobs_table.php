@@ -16,9 +16,9 @@ class CreateJobsTable extends Migration
         Schema::create('jobs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('tipe_job');
-            $table->foreign('tipe_job')->on('job_types')->references('id');
+            // $table->foreign('tipe_job')->on('job_types')->references('id')->onDelete('cascade');
             $table->unsignedBigInteger('company_id');
-            $table->foreign('company_id')->on('companies')->references('id');
+            $table->foreign('company_id')->on('companies')->references('id')->onDelete('cascade');
             $table->string('nama_pekerjaan');
             $table->text('requirements');
             $table->date('tanggal_expired')->nullable();

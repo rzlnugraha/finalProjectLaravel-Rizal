@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Biodata;
+use App\Http\Requests\RegisterRequest;
 use App\User;
 use App\Role;
 use App\Job;
 use Illuminate\Http\Request;
 use DataTables;
-use Sentinel;
+use Sentinel, Alert;
 
 class AdminController extends Controller
 {
@@ -26,7 +27,7 @@ class AdminController extends Controller
         dd($users);
     }
 
-    public function store(Request $request)
+    public function store(RegisterRequest $request)
     {
         $id = Sentinel::findRoleByName('visitor');
         $request->validate([
@@ -37,11 +38,12 @@ class AdminController extends Controller
         ]);
         $user = Sentinel::registerAndActivate($request->all());
         $user->roles()->attach($id);
-        $biodata = new Biodata();
+        $id = $user->id;
         $tgl_lahir = $request->tgl_lahir;
+        $biodata = new Biodata();
+        $biodata->user_id = $id;
         $biodata->tgl_lahir = $tgl_lahir;
         $biodata->save();
-        $user->biodata()->attach($id);
         return response()->json(['success' => 'Product saved successfully.']);
     }
 
@@ -74,5 +76,20 @@ class AdminController extends Controller
             $q->whereNotIn('name', ['admin']);
         })->latest()->get();
         return view('admin.data-user', compact('data'));
+    }
+
+    public function userHapus()
+    {
+        $user = User::onlyTrashed()->get();
+        return view('admin.datauser-hapus', compact('user'));
+    }
+
+    public function userAktif($id)
+    {
+        $user = User::withTrashed()
+            ->where('id', $id)
+            ->restore();
+        Alert::success('Berhasil mengembalikan data','Success');
+        return back();
     }
 }

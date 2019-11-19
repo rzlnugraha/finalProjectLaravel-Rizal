@@ -2,7 +2,7 @@
 <a href="{{ route('admin.index') }}" class="brand-link">
       <img src="{{ asset('assets') }}/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light"><b>Laravel</b>Auth</span>
+      <span class="brand-text font-weight-light"><b>Lolokeran</b></span>
     </a>
 
     <!-- Sidebar -->
@@ -30,16 +30,31 @@
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="{{ route('admin.dataUser') }}" class="nav-link">
-              <i class="nav-icon fas fa-user"></i>
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-edit"></i>
               <p>
                 User
+                <i class="fas fa-angle-left right"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('admin.dataUser') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>User Aktif</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('admin.userHapus') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>User Tidak Aktif</p>
+                </a>
+              </li>
+            </ul>
           </li>
           <li class="nav-item has-treeview">
             <a href="{{ route('company.index') }}" class="nav-link">
-              <i class="nav-icon fas fa-user"></i>
+              <i class="nav-icon fas fa-building"></i>
               <p>
                 Perusahaan
               </p>
@@ -47,7 +62,7 @@
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-edit"></i>
+              <i class="nav-icon fas fa-file"></i>
               <p>
                 Job
                 <i class="fas fa-angle-left right"></i>

@@ -4,14 +4,16 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Role;
 use App\Biodata;
+use App\Education;
 
 class User extends Authenticatable
 {
     use Notifiable;
-
+    use SoftDeletes;
     /**
      * The attributes that are mass assignable.
      *
@@ -20,6 +22,8 @@ class User extends Authenticatable
     protected $fillable = [
         'first_name', 'last_name', 'email', 'password',
     ];
+
+    protected $dates = ['deleted_at'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -47,5 +51,10 @@ class User extends Authenticatable
     public function biodata()
     {
         return $this->hasOne(Biodata::class);
+    }
+
+    public function education()
+    {
+        return $this->hasOne(Education::class);
     }
 }

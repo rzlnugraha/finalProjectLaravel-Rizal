@@ -1,4 +1,13 @@
 <center>
-<a href="{{ $url_edit }}" class="btn btn-primary" title="Edit {{ $row->username }}"><i class="fas fa-eye"></i></a> | 
-<a href="{{ $url_destroy }}" class="btn btn-danger" title="{{ $row->username }}"><i class="fas fa-trash"></i></a>
+<ul class="list-inline">
+    <li class="list-inline-item">
+        <a href="{{ $url_edit }}" class="btn btn-primary" title="Edit {{ $row->username }}"><i class="fas fa-eye"></i></a> | 
+    </li>
+    <li class="list-inline-item">
+        <form action="{{ $url_destroy }}" method="post">
+            @csrf @method('delete')
+            <button class="btn btn-danger"><i class="fa fa-trash" onclick="return confirm('Yakin hapus data')"></i></button>
+        </form>
+    </li>
+</ul>
 </center>

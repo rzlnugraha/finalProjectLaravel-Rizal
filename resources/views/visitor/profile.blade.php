@@ -33,13 +33,44 @@
                 </div>
                 <div class="card-body">
                   @if (!empty($biodata))
-                  <p class="card-text">Nama Lengkap : {{ $biodata->nama }}</p>
-                  <p class="card-text">Agama : {{ $biodata->agama }}</p>
+                  <p class="card-text">Nama Lengkap : {{ Sentinel::getUser()->first_name.' '.Sentinel::getUser()->last_name }}</p>
                   <p class="card-text">Tempat dan Tanggal Lahir : {{ $biodata->tempat_lahir }}, {{ date('d F Y', strtotime($biodata->tgl_lahir)) }}</p>
-                  <p class="card-text"></p>
-                  <a href="#!" class="btn btn-primary" data-toggle="modal" data-target="#modalEdit">Edit Biodata</a>
+                  <p class="card-text">Keterangan : {{ $biodata->keterangan }}
+                  
+                  
+                  </p>
+                  <p class="card-text"><embed src="{{ url('/file/cv/'.$biodata->cv) }}" type="application/pdf" width="400" height="300"></p>
+                  <a style="color: black;" href="{{ url('/file/cv/'.$biodata->cv) }}">{{ $biodata->cv }}</a><br><br>
+                  <a href="#" class="btn btn-info" data-toggle="modal" data-target="#modalEdit">Edit Biodata</a>
                   @else
                   <p class="card-text">Silakan isi biodata</p>
+                  @endif
+                </div>
+              </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-md-4"></div>
+          <div class="col-md-8">
+              <div class="card">
+                <div class="card-header">
+                  Pendidikan
+                </div>
+                <div class="card-body">
+                  @if (!empty($pendidikan))
+                  <p class="card-text">Nama Lengkap : {{ Sentinel::getUser()->first_name.' '.Sentinel::getUser()->last_name }}</p>
+                  <p class="card-text">Tempat dan Tanggal Lahir : {{ $biodata->tempat_lahir }}, {{ date('d F Y', strtotime($biodata->tgl_lahir)) }}</p>
+                  <p class="card-text">Keterangan : {{ $biodata->keterangan }}
+                  
+                  
+                  </p>
+                  <p class="card-text"><embed src="{{ url('/file/cv/'.$biodata->cv) }}" type="application/pdf" width="400" height="300"></p>
+                  <a style="color: black;" href="{{ url('/file/cv/'.$biodata->cv) }}">{{ $biodata->cv }}</a><br><br>
+                  <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modalEdit">Edit Biodata</a>
+                  @else
+                  <p class="card-text">Silakan isi pendidikan (Opsional)</p>
+                  <p class="card-text"><a href="" data-toggle="modal" data-target="#modalPendidikan" class="btn btn-success" {{ !empty($pendidkan) ? 'disabled' : '' }}>Isi Pendidikan</a></p>
                   @endif
                 </div>
               </div>
@@ -48,51 +79,7 @@
     </div>
 </section>
 
-<!-- Modal Create -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Biodata {{ Sentinel::getUser()->first_name }}</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form action="{{ route('biodata.store') }}" method="post" enctype="multipart/form-data">
-            @csrf
-            @include('visitor._form', [
-                'biodata' => new \App\Biodata,
-                'button' => 'Save'
-            ])
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-@if (!empty($biodata))
-<!-- Modal Edit -->
-<div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Biodata {{ Sentinel::getUser()->first_name }}</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form action="{{ route('biodata.update',$biodata->id) }}" method="post" enctype="multipart/form-data">
-            @csrf @method('put')
-            @include('visitor._form', [
-              'button' => 'Edit'
-              ])
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-@endif
+@include('visitor._modal')
 @endsection
 
 @push('script')

@@ -22,6 +22,8 @@ Route::group(['middleware' => ['auth.sentinel','hasAdmin']], function () {
     Route::post('/admin.tambahuser', 'AdminController@store')->name('admin.store');
     Route::get('/admin.edituser/{users}/edit', 'AdminController@edit')->name('admin.edit');
     Route::delete('/admin.deleteuser/{id}', 'AdminController@destroy')->name('admin.destroy');
+    Route::get('/admin.userhapus','AdminController@userHapus')->name('admin.userHapus');
+    Route::post('/admin.useraktif/{id}','AdminController@userAktif')->name('admin.userAktif');
     Route::resource('jobs', 'JobsController');
     Route::resource('tipejob', 'TipeJobController');
     Route::resource('company', 'CompanyController');

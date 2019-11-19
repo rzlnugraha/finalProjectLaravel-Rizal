@@ -35,8 +35,7 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <a href="javascript:void(0)" class="btn btn-primary btn-md mb-3" id="tambah"><i class="fas fa-plus"></i></a>
-              <table id="datatable" class="table table-bordered table-hover datauser">
+              <table id="tableuser" class="table table-bordered table-hover datauser">
                 <thead>
                 <tr>
                     <th>No</th>
@@ -47,6 +46,25 @@
                 </tr>
                 </thead>
                 <tbody>
+                @php
+                    $no = 1;
+                @endphp
+                @forelse ($user as $item)
+                <tr>
+                    <td>{{ $no++ }}</td>
+                    <td>{{ $item->first_name }}</td>
+                    <td>{{ $item->last_name }}</td>
+                    <td>{{ $item->email }}</td>
+                    <td align="center">
+                        <form action="{{ route('admin.userAktif',$item->id) }}" method="post">
+                            @csrf
+                            <button type="submit" class="btn btn-danger">Aktifkan</button>                            
+                        </form>
+                    </td>
+                </tr>
+                @empty
+                    
+                @endforelse
                 </tbody>
               </table>
             </div>
@@ -119,52 +137,7 @@
     <script src="{{ asset('assets') }}/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
 
     <script>
-        $('#datatable').DataTable({
-            responsive: true,
-            processing: true,
-            serverSide : true,
-            ajax : "{{ route('admin.dataUser') }}",
-            columns : [
-                {data: 'DT_RowIndex', name: 'id'},
-                {data: 'first_name', name: 'first_name'},
-                {data: 'last_name', name: 'last_name'},
-                {data: 'email', name : 'email'},
-                {data: 'action', name: 'action', orderable: false, searchable: false},
-            ]
-        });
-
-        $('#tambah').click(function () {
-            $('#saveBtn').val("create-product");
-            $('#form-user').trigger("reset");
-            $('#modelHeading').html("Tambah User");
-            $('#ajaxModel').modal('show');
-        });
-
-        $('#saveBtn').click(function (e) {
-            e.preventDefault();
-        
-            var table = $('.datauser').DataTable();
-            $.ajax({
-                data: $('#form-user').serialize(),
-                url: "{{ route('admin.store') }}",
-                type: "POST",
-                dataType: "json",
-                success: function (data) {
-                    $('#form-user').trigger("reset");
-                    $('#ajaxModel').modal('hide');
-                    table.ajax.reload();
-
-                swal({
-                    type : 'success',
-                    title : 'Success!',
-                    text : 'Data has been saved!'
-                });
-                },
-                error: function (data) {
-                    console.log('Error:', data);
-                    $('#saveBtn').html('Save Changes');
-                }
-            });
-        });
+        $('#tableuser').DataTable({})
     </script>
+
 @endpush

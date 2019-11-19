@@ -53,7 +53,7 @@ class CompanyController extends Controller
         $company->jenis_industri = $request->get('jenis_industri');
         $company->deskripsi_perusahaan = $request->get('deskripsi_perusahaan');
         $company->save();
-        Alert::success('Berhasil menambah data perusahaan', 'Success');
+        Alert::success('Berhasil menambah data', 'Success');
         return back();
     }
 
