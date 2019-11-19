@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use Carbon\Carbon;
-
 use Illuminate\Foundation\Http\FormRequest;
 
 class RegisterRequest extends FormRequest
@@ -29,7 +27,7 @@ class RegisterRequest extends FormRequest
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required|unique:users,email',
-            'tgl_lahir' => 'required|before_or_equal:'.Carbon::now()->subYears(18)->format('Y-m-d'),
+            'tgl_lahir' => 'required|before:-17 years',
             'password' => 'required|min:6|confirmed',
             'password_confirmation' => 'same:password'
         ];

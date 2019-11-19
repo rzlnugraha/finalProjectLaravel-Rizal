@@ -18,6 +18,7 @@ Auth::routes();
 Route::group(['middleware' => ['auth.sentinel','hasAdmin']], function () {
     Route::get('/admin.index', 'AdminController@index')->name('admin.index');
     Route::get('/admin.dataUser', 'AdminController@dataUser')->name('admin.dataUser');
+    Route::delete('/admin.delete', 'AdminController@destroy')->name('admin.destroy');
     Route::post('/admin.tambahuser', 'AdminController@store')->name('admin.store');
     Route::get('/admin.edituser/{users}/edit', 'AdminController@edit')->name('admin.edit');
     Route::delete('/admin.deleteuser/{id}', 'AdminController@destroy')->name('admin.destroy');

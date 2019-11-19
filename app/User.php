@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Role;
+use App\Biodata;
 
 class User extends Authenticatable
 {
@@ -41,5 +42,10 @@ class User extends Authenticatable
     public function roles()
     {
         return $this->BelongsToMany(Role::class, 'role_users');
+    }
+
+    public function biodata()
+    {
+        return $this->hasOne(Biodata::class);
     }
 }

@@ -84,7 +84,14 @@
                             <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" required>
                         </div>
                     </div>
-    
+                    
+                    <div class="form-group">
+                        <label for="tgl_lahir" class="col-sm-2 control-label">Tanggal Lahir</label>
+                        <div class="col-sm-12">
+                            <input type="date" class="form-control" id="tgl_lahir" name="tgl_lahir" required>
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <label id="password" class="col-sm-2 control-label">Password</label>
                         <input type="password" name="password" id="password" class="form-control" placeholder="Enter Password" required>

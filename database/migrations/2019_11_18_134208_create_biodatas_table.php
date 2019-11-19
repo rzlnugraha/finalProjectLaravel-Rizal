@@ -17,11 +17,11 @@ class CreateBiodatasTable extends Migration
             $table->bigIncrements('id');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->on('users')->references('id')->onDelete('cascade');
-            $table->string('nama');
-            $table->string('agama');
-            $table->string('tempat_lahir');
-            $table->date('tgl_lahir');
-            $table->text('keterangan');
+            $table->string('nama')->nullable();
+            $table->string('agama')->nullable();
+            $table->string('tempat_lahir')->nullable();
+            $table->date('tgl_lahir')->nullable();
+            $table->text('keterangan')->nullable();
             $table->timestamps();
         });
     }

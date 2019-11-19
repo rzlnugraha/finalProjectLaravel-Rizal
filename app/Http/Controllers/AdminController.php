@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Biodata;
 use App\User;
 use App\Role;
 use App\Job;
@@ -36,12 +37,19 @@ class AdminController extends Controller
         ]);
         $user = Sentinel::registerAndActivate($request->all());
         $user->roles()->attach($id);
+        $biodata = new Biodata();
+        $tgl_lahir = $request->tgl_lahir;
+        $biodata->tgl_lahir = $tgl_lahir;
+        $biodata->save();
+        $user->biodata()->attach($id);
         return response()->json(['success' => 'Product saved successfully.']);
     }
 
     public function destroy($id)
     {
         User::destroy($id);
+        Alert::success('Berhasil menghapus data','Success');
+        return back();
     }
 
     public function dataUser(Request $request)

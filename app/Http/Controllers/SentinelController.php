@@ -21,7 +21,6 @@ class SentinelController extends Controller
         DB::beginTransaction();
         try {
             $role = Sentinel::findRoleBySlug('visitor');
-            $biodata = new Biodata();
             $role_id = $role->id;
             $credentials = [
                 'first_name' => $req->first_name,
@@ -30,8 +29,13 @@ class SentinelController extends Controller
                 'password' => $req->password,
             ];
             $user = Sentinel::registerAndActivate($credentials);
+            $user->save();
+            $id = $user->id;
             $tgl_lahir = $req->tgl_lahir;
+            $biodata = new Biodata();
+            $biodata->user_id = $id;
             $biodata->tgl_lahir = $tgl_lahir;
+            $biodata->save();
             $user->roles()->attach($role_id);
             Alert::success('Berhasil mendaftar', 'Success');
             DB::commit();
