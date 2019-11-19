@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Biodata;
 use App\Http\Requests\RegisterRequest;
 use App\User;
+use App\Apply;
 use App\Role;
 use App\Job;
 use Illuminate\Http\Request;
@@ -19,7 +20,8 @@ class AdminController extends Controller
         $user = User::whereHas('roles', function ($q) {
             $q->whereNotIn('name', ['admin']);
         })->latest()->get();
-        return view('admin.index', compact('jumlah','user'));
+        $pelamar = Apply::all();
+        return view('admin.index', compact('jumlah','user', 'pelamar'));
     }
 
     public function edit(User $users)

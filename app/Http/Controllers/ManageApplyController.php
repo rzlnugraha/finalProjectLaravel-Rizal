@@ -58,7 +58,8 @@ class ManageApplyController extends Controller
      */
     public function edit($id)
     {
-        //
+        $job = Apply::findOrFail($id);
+        return view('admin.apply.edit', compact('job'));
     }
 
     /**
@@ -70,7 +71,10 @@ class ManageApplyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $apply = Apply::findOrFail($id);
+        $apply->update($request->all());
+        Alert::success('Berhasil merubah status','Success');
+        return redirect()->route('manage.index');
     }
 
     /**
