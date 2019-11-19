@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Company;
 use App\JobType;
 use Illuminate\Support\ServiceProvider;
 
@@ -26,6 +27,9 @@ class AppServiceProvider extends ServiceProvider
     {
         view()->composer('admin.job._form', function ($view) {
             $view->with('tipe_job', JobType::query());
+        });
+        view()->composer('admin.job._form', function ($view) {
+            $view->with('company', Company::query());
         });
     }
 }

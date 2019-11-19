@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use Alert;
+use App\Biodata;
+use App\Http\Requests\RegisterRequest;
 use Sentinel;
 
 class SentinelController extends Controller
@@ -14,11 +16,12 @@ class SentinelController extends Controller
         return view('auth.register');
     }
 
-    public function signup_store(Request $req)
+    public function signup_store(RegisterRequest $req)
     {
         DB::beginTransaction();
         try {
             $role = Sentinel::findRoleBySlug('visitor');
+            $biodata = new Biodata();
             $role_id = $role->id;
             $credentials = [
                 'first_name' => $req->first_name,
@@ -27,6 +30,8 @@ class SentinelController extends Controller
                 'password' => $req->password,
             ];
             $user = Sentinel::registerAndActivate($credentials);
+            $tgl_lahir = $req->tgl_lahir;
+            $biodata->tgl_lahir = $tgl_lahir;
             $user->roles()->attach($role_id);
             Alert::success('Berhasil mendaftar', 'Success');
             DB::commit();

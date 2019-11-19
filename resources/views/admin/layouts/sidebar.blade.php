@@ -38,6 +38,14 @@
             </a>
           </li>
           <li class="nav-item has-treeview">
+            <a href="{{ route('company.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                Perusahaan
+              </p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
               <p>

@@ -4,16 +4,20 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Role;
+use App\Job;
 use Illuminate\Http\Request;
 use DataTables;
-use Validator;
 use Sentinel;
 
 class AdminController extends Controller
 {
     public function index()
     {
-        return view('admin.index');
+        $jumlah = Job::all();
+        $user = User::whereHas('roles', function ($q) {
+            $q->whereNotIn('name', ['admin']);
+        })->latest()->get();
+        return view('admin.index', compact('jumlah','user'));
     }
 
     public function edit(User $users)

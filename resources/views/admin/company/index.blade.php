@@ -37,10 +37,9 @@
                 <thead>
                 <tr>
                   <th>No</th>
-                  <th>Tipe Pekerjaan</th>
-                  <th>Job</th>
                   <th>Nama Perusahaan</th>
-                  <th>Tanggal Expired</th>
+                  <th>Alamat Perusahaan</th>
+                  <th>Jenis Industri</th>
                   <th>Action</th>
                 </tr>
                 </thead>
@@ -48,19 +47,18 @@
                   @php
                       $no = 1;
                   @endphp
-                @forelse ($job as $item)
+                @forelse ($company as $item)
                 <tr>  
                     <td>{{ $no++ }}</td>
-                    <td>{{ $item->job_types->job_type }}</td>
-                    <td>{{ $item->nama_pekerjaan }}</td>
-                    <td>{{ $item->company->nama_perusahaan }}</td>
-                    <td>{{ date('d F Y', strtotime($item->tanggal_expired)) }}</td>
+                    <td>{{ $item->nama_perusahaan }}</td>
+                    <td>{{ $item->alamat_perusahaan }}</td>
+                    <td>{{ $item->jenis_industri }}</td>
                     <td>
                       <ul class="list-inline">
-                        <li class="list-inline-item"><a href="{{ route('jobs.show',$item->id) }}" class="btn btn-primary"><i class="fa fa-eye"></i></a></li>
-                        <li class="list-inline-item"><a href="{{ route('jobs.edit',$item->id) }}" class="btn btn-info"><i class="fa fa-edit"></i></a></li>
+                        <li class="list-inline-item"><a href="{{ route('company.show',$item->id) }}" class="btn btn-primary"><i class="fa fa-eye"></i></a></li>
+                        <li class="list-inline-item"><a href="{{ route('company.edit',$item->id) }}" class="btn btn-info"><i class="fa fa-edit"></i></a></li>
                         <li class="list-inline-item">
-                          <form action="{{ route('jobs.destroy',$item->id) }}" method="post">
+                          <form action="{{ route('company.destroy',$item->id) }}" method="post">
                               @csrf @method('DELETE')
                             <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin hapus data?')"><i class="fa fa-trash"></i></button>
                           </form>
@@ -90,10 +88,10 @@
             </div>
             
             <div class="modal-body">
-              <form action="{{ route('jobs.store') }}" method="post" enctype="multipart/form-data">
+              <form action="{{ route('company.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
-                @include('admin.job._form', [
-                  'job' => new \App\Job,
+                @include('admin.company._form', [
+                  'company' => new \App\Company,
                   'button' => 'Save'
                 ])
               </form>

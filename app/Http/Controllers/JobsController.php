@@ -38,24 +38,7 @@ class JobsController extends Controller
      */
     public function store(JobRequest $request)
     {
-        $path = '/images/job/';
-
-        $job = new Job();
-        if ($request->foto_perusahaan) {
-            $foto = 'perusahaan-' . str_random() . time() . '.' . $request->file('foto_perusahaan')->getClientOriginalExtension();
-            $request->foto_perusahaan->move(public_path($path), $foto);
-            $job->foto_perusahaan = $foto;
-        }
-
-        $job->tipe_job = $request->get('tipe_job');
-        $job->nama_pekerjaan = $request->get('nama_pekerjaan');
-        $job->nama_perusahaan = $request->get('nama_perusahaan');
-        $job->requirements = $request->get('requirements');
-        $job->tanggal_expired = $request->get('tanggal_expired');
-        $job->gaji = $request->get('gaji');
-        $job->alamat_perusahaan = $request->get('alamat_perusahaan');
-        $job->deskripsi = $request->get('deskripsi');
-        $job->save();
+        Job::create($request->all());
         Alert::success('Berhasil menambah Job', 'Success');
         return back();
     }
@@ -91,34 +74,8 @@ class JobsController extends Controller
      */
     public function update(JobRequest $request, $id)
     {
-        $path = '/images/job/';
-        
-        $job = Job::findOrFail($id);
-        $foto_lama = public_path('images/job/' . $job->foto_perusahaan);
-
-        if ($request->foto_perusahaan) {
-            $foto = 'perusahaan-' . str_random() . time() . '.' . $request->file('foto_perusahaan')->getClientOriginalExtension();
-            $request->foto_perusahaan->move(public_path($path), $foto);
-            $job->foto_perusahaan = $foto;
-        }
-
-        $job->tipe_job = $request->get('tipe_job');
-        $job->nama_pekerjaan = $request->get('nama_pekerjaan');
-        $job->nama_perusahaan = $request->get('nama_perusahaan');
-        $job->requirements = $request->get('requirements');
-        $job->tanggal_expired = $request->get('tanggal_expired');
-        $job->gaji = $request->get('gaji');
-        $job->alamat_perusahaan = $request->get('alamat_perusahaan');
-        $job->deskripsi = $request->get('deskripsi');
-
-        if ($job->save()) {
-            if (file_exists($foto_lama)) {
-                unlink($foto_lama);
-            }
-        } else {
-            Alert::error('Gagal', 'error');
-            return back();
-        }
+        $company = Company::findOrFail($id);
+        $company->update($request->all());
         Alert::success('Berhasil merubah Job', 'Success');
         return back();
     }

@@ -61,6 +61,20 @@
             </div>
         </div>
         <div class="input-group mb-3">
+            <input id="tgl_lahir" type="date" class="form-control @error('tgl_lahir') is-invalid @enderror"
+            name="tgl_lahir" value="{{ old('tgl_lahir') }}" autocomplete="tgl_lahir" placeholder="Nama Belakang Anda">
+            @error('tgl_lahir')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+            <div class="input-group-append">
+                <div class="input-group-text">
+                <span class="fas fa-user"></span>
+                </div>
+            </div>
+        </div>
+        <div class="input-group mb-3">
             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
              name="email" value="{{ old('email') }}" autocomplete="email"  placeholder="Email Anda">
             @error('email')

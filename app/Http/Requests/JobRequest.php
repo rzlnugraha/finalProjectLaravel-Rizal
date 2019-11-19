@@ -25,14 +25,26 @@ class JobRequest extends FormRequest
     {
         return [
             'tipe_job' => 'required',
+            'company_id' => 'required',
             'nama_pekerjaan' => 'required',
-            'nama_perusahaan' => 'required',
             'requirements' => 'required',
-            'tanggal_expired' => 'date|after:now',
+            'tanggal_expired' => 'required|date|after:now',
             'gaji' => 'numeric',
-            'alamat_perusahaan' => 'required',
-            'deskripsi' => 'required',
-            'foto_perusahaan' => 'required|mimes:jpg,jpeg,png|max:2048',
+            'deskripsi_pekerjaan' => 'required',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'tipe_job.required' => 'Tipe pekerjaan harus dipilih',
+            'company_id.required' => 'Perusahaan harus dipilih',
+            'nama_pekerjaan.required' => 'Pekerjaan harus diisi',
+            'requirements.required' => 'Requirements harus diisi',
+            'tanggal_expired.required' => 'Tanggal terakhir apply job harus diisi',
+            'tanggal_expired.after' => 'Tidak boleh mengisi sebelum tanggal hari ini',
+            'gaji.numeric' => 'Gaji harus angka',
+            'deskripsi_pekerjaan.required' => 'Deskripsi pekerjaan tidak boleh kosong',
         ];
     }
 }

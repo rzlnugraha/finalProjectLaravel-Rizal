@@ -23,6 +23,7 @@ Route::group(['middleware' => ['auth.sentinel','hasAdmin']], function () {
     Route::delete('/admin.deleteuser/{id}', 'AdminController@destroy')->name('admin.destroy');
     Route::resource('jobs', 'JobsController');
     Route::resource('tipejob', 'TipeJobController');
+    Route::resource('company', 'CompanyController');
 });
 
 Route::group(['prefix' => 'user', 'middleware' => ['auth.sentinel','hasUser']], function () {
