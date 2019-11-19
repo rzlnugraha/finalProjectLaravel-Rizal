@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\JobType;
 use App\Company;
+use App\Apply;
 
 class Job extends Model
 {
@@ -22,12 +23,8 @@ class Job extends Model
         return $this->belongsTo(Company::class, 'company_id');
     }
 
-    public function foto()
+    public function applies()
     {
-        if (file_exists(public_path() . '/images/job/' . $this->foto_perusahaan) && $this->foto_perusahaan != null) {
-            return '/images/job/' . $this->foto_perusahaan;
-        } else {
-            return url('/img/afe.png');
-        }
+        return $this->hasMany(Apply::class);
     }
 }

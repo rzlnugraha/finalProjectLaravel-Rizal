@@ -61,6 +61,14 @@
             </a>
           </li>
           <li class="nav-item has-treeview">
+            <a href="{{ route('manage.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-building"></i>
+              <p>
+                Data Apply
+              </p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-file"></i>
               <p>

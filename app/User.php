@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Role;
 use App\Biodata;
 use App\Education;
+use App\Apply;
 
 class User extends Authenticatable
 {
@@ -56,5 +57,10 @@ class User extends Authenticatable
     public function education()
     {
         return $this->hasOne(Education::class);
+    }
+
+    public function applies()
+    {
+        return $this->hasMany(Apply::class);
     }
 }

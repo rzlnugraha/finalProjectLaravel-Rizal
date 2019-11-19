@@ -15,8 +15,7 @@ class VisitorController extends Controller
 {
     public function index()
     {
-        $job = Job::with('company')->latest()->get();
-        return view('visitor.index', compact('job'));
+        return view('visitor.index');
     }
 
     public function profile()
@@ -91,5 +90,11 @@ class VisitorController extends Controller
         $biodata->save();
         Alert::success('Berhasil merubah biodata', 'Success');
         return back();
+    }
+
+    public function detail_job($id)
+    {
+        $job = Job::with('company','job_types')->where('id',$id)->first();
+        return view('visitor.detail_job', compact('job'));
     }
 }

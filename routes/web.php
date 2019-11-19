@@ -27,6 +27,7 @@ Route::group(['middleware' => ['auth.sentinel','hasAdmin']], function () {
     Route::resource('jobs', 'JobsController');
     Route::resource('tipejob', 'TipeJobController');
     Route::resource('company', 'CompanyController');
+    Route::resource('manage', 'ManageApplyController');
 });
 
 Route::group(['prefix' => 'user', 'middleware' => ['auth.sentinel','hasUser']], function () {
@@ -34,6 +35,10 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth.sentinel','hasUser']], 
     Route::get('/visitor.profile', 'VisitorController@profile')->name('visitor.profile');
     Route::post('/visitor.profile.store', 'VisitorController@store')->name('biodata.store');
     Route::put('/visitor.profile.update/{id}', 'VisitorController@update')->name('biodata.update');
+    // Job Detail
+    Route::get('/detail-job/{id}','VisitorController@detail_job')->name('detail_job');
+    // Apply CV
+    Route::post('/appycv', 'ApplyController@store')->name('apply.store');
 });
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth.sentinel');
