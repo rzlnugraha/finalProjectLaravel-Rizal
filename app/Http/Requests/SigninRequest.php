@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class EditBiodataRequest extends FormRequest
+class SigninRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,14 +24,8 @@ class EditBiodataRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required',
-            'tempat_lahir' => 'required',
-            'tgl_lahir' => 'required|date|before:-17 years',
-            'foto_pribadi' => 'mimes:jpg,jpeg,png|max:2048',
-            'cv' => 'file|mimes:pdf|max:5012',
-            'keterangan' => 'required',
-            'skill' => 'required',
-            'profesi' => 'required'
+            'email' => 'required',
+            'password' => 'required'
         ];
     }
 }

@@ -10,7 +10,7 @@ use App\Education;
 use App\Http\Requests\BiodataRequest;
 use App\Http\Requests\EditBiodataRequest;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 
 class VisitorController extends Controller
 {
@@ -47,6 +47,8 @@ class VisitorController extends Controller
         $user_id = Sentinel::getUser()->id;
 
         $biodata->user_id = $user_id;
+        $biodata->skill = $request->get('skill');
+        $biodata->profesi = $request->get('profesi');
         $biodata->tempat_lahir = $request->get('tempat_lahir');
         $biodata->keterangan = $request->get('keterangan');
         $biodata->save();
@@ -86,6 +88,8 @@ class VisitorController extends Controller
         $user_id = Sentinel::getUser()->id;
 
         $biodata->user_id = $user_id;
+        $biodata->skill = $request->get('skill');
+        $biodata->profesi = $request->get('profesi');
         $biodata->tempat_lahir = $request->get('tempat_lahir');
         $biodata->tgl_lahir = $request->get('tgl_lahir');
         $biodata->keterangan = $request->get('keterangan');
@@ -104,7 +108,21 @@ class VisitorController extends Controller
     public function list_job()
     {
         $date = date('Y-m-d');
-        $job = Job::whereDate('tanggal_expired','>=',$date)->latest()->paginate(9);
-        return view('visitor.list', compact('job'));
+        $semua = Job::whereDate('tanggal_expired','>=',$date)->get();
+        $data = Job::whereDate('tanggal_expired','>=',$date)->latest()->paginate(9);
+        return view('visitor.list', compact('data','semua'));
+    }
+    
+    public function cari_kerjaan(Request $request)
+    {
+        $date = date('Y-m-d');
+        if ($request->ajax()) {
+            $data = Job::whereDate('tanggal_expired', '>=', $date)->where('id', $request->cari)->latest()->paginate(9);
+            $view =  view('visitor.list-pekerjaan', compact('data'))->render();
+            return response()->json([
+                'view' => $view,
+                'status' => 'success'
+            ]);
+        }
     }
 }

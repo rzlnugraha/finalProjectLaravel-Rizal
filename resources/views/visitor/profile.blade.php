@@ -16,7 +16,7 @@
         <div class="row">
             <div class="col-md-4">
               <div class="card" style="width: 25rem;">
-              <center><img src="{{ empty($biodata) ? '/images/images.jpg' : $biodata->foto_pribadi() }}" style="width:300px; height:250px" class="card-img-top" alt="..."></center>
+              <center><img src="{{ $biodata->foto_pribadi() }}" style="width:300px; height:250px" class="card-img-top" alt="..."></center>
               <div class="card-body">
                   <h5 class="card-title">{{ Sentinel::getUser()->first_name }}</h5>
                   <p class="card-text">Email : {{ Sentinel::getUser()->email }}</p>
@@ -35,6 +35,8 @@
                   <p class="card-text">Nama Lengkap : {{ Sentinel::getUser()->first_name.' '.Sentinel::getUser()->last_name }}</p>
                   <p class="card-text">Tempat dan Tanggal Lahir : {{ $biodata->tempat_lahir }}, {{ date('d F Y', strtotime($biodata->tgl_lahir)) }}</p>
                   @if (!empty($biodata->cv))
+                  <p class="card-text">Skill : {{ $biodata->skill }}
+                  <p class="card-text">Profesi : {{ $biodata->profesi }}
                   <p class="card-text">Keterangan : {{ $biodata->keterangan }}
                   
                   

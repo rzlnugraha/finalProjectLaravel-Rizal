@@ -74,4 +74,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(Apply::class);
     }
+
+    public function foto()
+    {
+        if (file_exists(public_path() . '/images/biodata/' . $this->biodata->foto_pribadi) && $this->biodata->foto_pribadi != null) {
+            return '/images/biodata/' . $this->biodata->foto_pribadi;
+        } else {
+            return url('/images/afe.png');
+        }
+    }
 }

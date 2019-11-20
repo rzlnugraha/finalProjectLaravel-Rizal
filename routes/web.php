@@ -18,6 +18,7 @@ Auth::routes();
 Route::group(['middleware' => ['auth.sentinel','hasAdmin']], function () {
     // Admin Controller
     Route::get('/admin.index', 'AdminController@index')->name('admin.index');
+    Route::get('/admin.show/{id}', 'AdminController@show')->name('admin.show');
     Route::get('/admin.dataUser', 'AdminController@dataUser')->name('admin.dataUser');
     Route::delete('/admin.delete', 'AdminController@destroy')->name('admin.destroy');
     Route::post('/admin.tambahuser', 'AdminController@store')->name('admin.store');
@@ -46,6 +47,7 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth.sentinel','hasUser']], 
     Route::post('/appycv', 'ApplyController@store')->name('apply.store');
 });
 
+Route::get('/cari-kerjaan','VisitorController@cari_kerjaan')->name('cari_kerjaan');
 Route::get('/list-job','VisitorController@list_job')->name('list-job');
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth.sentinel');
 Route::get('signup','SentinelController@signup')->name('signup');

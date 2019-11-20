@@ -1,7 +1,10 @@
 <center>
 <ul class="list-inline">
     <li class="list-inline-item">
-        <a href="{{ $url_edit }}" class="btn btn-primary" title="Edit {{ $row->username }}"><i class="fas fa-eye"></i></a> | 
+        <a href="{{ $url_edit }}" class="btn btn-primary" title="Edit {{ $row->email }}"><i class="fas fa-edit"></i></a>
+    </li>
+    <li class="list-inline-item">
+        <a href="{{ $url_show }}" class="btn btn-info" title="Show {{ $row->email }}"><i class="fas fa-eye"></i></a>
     </li>
     <li class="list-inline-item">
         <form action="{{ $url_destroy }}" method="post">

@@ -26,6 +26,8 @@ class BiodataRequest extends FormRequest
         return [
             'user_id' => 'required',
             'tempat_lahir' => 'required',
+            'profesi' => 'required',
+            'skill' => 'required',
             'tgl_lahir' => 'date|before:-17 years',
             'foto_pribadi' => 'required|mimes:jpg,jpeg,png|max:2048',
             'cv' => 'required|file|mimes:pdf|max:5012'

@@ -18,7 +18,7 @@ class Biodata extends Model
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-        'user_id','tempat_lahir','tgl_lahir','foto_pribadi','cv','keterangan'
+        'user_id','tempat_lahir','tgl_lahir','foto_pribadi','cv','keterangan','skill','profesi'
     ];
     
     public function user()
@@ -28,6 +28,10 @@ class Biodata extends Model
 
     public function foto_pribadi()
     {
-        return '/images/biodata/' . $this->foto_pribadi;
+        if (file_exists(public_path() . '/images/biodata/' . $this->foto_pribadi) && $this->foto_pribadi != null) {
+            return '/images/biodata/' . $this->foto_pribadi;
+        } else {
+            return url('/images/afe.png');
+        }
     }
 }

@@ -94,6 +94,7 @@ class AdminController extends Controller
                     return view('admin.layouts._action', [
                         'row' => $row,
                         'url_edit' => route('admin.edit', $row->id),
+                        'url_show' => route('admin.show', $row->id),
                         'url_destroy' => route('admin.destroy', $row->id)
                     ]);
                 })
@@ -121,5 +122,11 @@ class AdminController extends Controller
         Education::withTrashed()->where('user_id',$id)->restore();
         Alert::success('Berhasil mengembalikan data','Success');
         return back();
+    }
+
+    public function show($id)
+    {
+        $user = User::findOrFail($id);
+        return view('admin.show', compact('user'));
     }
 }

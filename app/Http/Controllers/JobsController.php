@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\JobRequest;
 use App\Job;
 use Alert;
+use App\Apply;
 use Illuminate\Http\Request;
 
 class JobsController extends Controller
@@ -51,7 +52,8 @@ class JobsController extends Controller
      */
     public function show(Job $job)
     {
-        return view('admin.job.show', compact('job'));
+        $apply = Apply::where('job_id',$job->id)->with('user','job')->get();
+        return view('admin.job.show', compact('job','apply'));
     }
 
     /**
