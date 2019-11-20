@@ -9,7 +9,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="{{ route('biodata.store') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('biodata.store',$biodata->id) }}" method="post" enctype="multipart/form-data">
             @csrf
             @include('visitor._form', [
                 'biodata' => new \App\Biodata,

@@ -47,7 +47,7 @@
               <li class="nav-item">
                 <a href="{{ route('admin.userHapus') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>User Tidak Aktif</p>
+                  <p>User Delete</p>
                 </a>
               </li>
             </ul>
@@ -61,12 +61,33 @@
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="{{ route('manage.index') }}" class="nav-link">
-              <i class="nav-icon fas fa-building"></i>
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-file-pdf"></i>
               <p>
                 Data Apply
+                <i class="fas fa-angle-left right"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('manage.index') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Data Waiting</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('manage.reject') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Data Reject</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('manage.approve') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Data Approve</p>
+                </a>
+              </li>
+            </ul>
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">

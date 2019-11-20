@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Apply;
+use App\Jobs\EmailStatus;
 use Illuminate\Http\Request;
+use App\User;
+use Alert;
 
 class ManageApplyController extends Controller
 {
@@ -14,8 +17,20 @@ class ManageApplyController extends Controller
      */
     public function index()
     {
-        $data = Apply::with('user','job')->latest()->get();
+        $data = Apply::with('user','job')->where('status_apply','waiting')->latest()->get();
         return view('admin.apply.index', compact('data'));
+    }
+    
+    public function approve()
+    {
+        $data = Apply::with('user','job')->where('status_apply','approve')->latest()->get();
+        return view('admin.apply.approve', compact('data'));
+    }
+    
+    public function reject()
+    {
+        $data = Apply::with('user','job')->where('status_apply','reject')->latest()->get();
+        return view('admin.apply.reject', compact('data'));
     }
 
     /**
@@ -72,7 +87,10 @@ class ManageApplyController extends Controller
     public function update(Request $request, $id)
     {
         $apply = Apply::findOrFail($id);
-        $apply->update($request->all());
+        $status = EmailStatus::dispatch($apply);
+        $update = $apply->update([
+            'status_apply' => $request->status_apply
+        ]);
         Alert::success('Berhasil merubah status','Success');
         return redirect()->route('manage.index');
     }

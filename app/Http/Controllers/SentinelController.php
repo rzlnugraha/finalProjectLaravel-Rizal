@@ -62,17 +62,26 @@ class SentinelController extends Controller
 
     public function login_store(Request $req)
     {
-        if ($user = Sentinel::authenticate($req->all())) { // Buat cek ada user atau engganya di tabel user
-            Alert::success('Assalamualaikum ' . $user->first_name . ' ' . $user->last_name, 'Masuk');
-            if (Sentinel::getUser()->roles()->first()->slug == 'admin') {
-                Alert::success('Happy ' . date('l'), 'Welcome Admin');
-                return redirect()->route('admin.index');
-            } else {
-                return redirect()->route('visitor.index');
-            }
+        $credentials = [
+            'email' => $req->email
+        ];
+        $user = Sentinel::findByCredentials($credentials);
+        if ($user->deleted_at != null) {
+            Alert::error('Akun anda tidak aktif, silakan hubungi admin','Error');
+            return back();
         } else {
-            Alert::error('Gagal, Password atau Email salah!', 'Error');
-            return view('auth.login');
+            if ($user = Sentinel::authenticate($req->all())) { // Buat cek ada user atau engganya di tabel user
+                Alert::success('Assalamualaikum ' . $user->first_name . ' ' . $user->last_name, 'Masuk');
+                if (Sentinel::getUser()->roles()->first()->slug == 'admin') {
+                    Alert::success('Happy ' . date('l'), 'Welcome Admin');
+                    return redirect()->route('admin.index');
+                } else {
+                    return redirect()->route('visitor.index');
+                }
+            } else {
+                Alert::error('Gagal, Password atau Email salah!', 'Error');
+                return view('auth.login');
+            }
         }
     }
 }

@@ -33,7 +33,7 @@ class AppServiceProvider extends ServiceProvider
             $view->with('company', Company::query());
         });
         view()->composer(['visitor.index','welcome'], function ($view) {
-            $view->with('job', Job::with('company')->latest()->take(6)->get());
+            $view->with('job', Job::with('company')->whereDate('tanggal_expired','>=', date('Y-m-d'))->latest()->take(6)->get());
         });
     }
 }

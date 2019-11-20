@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Alert, Session, Sentinel;
+use App\Apply;
 use App\User, App\Job;
 use App\Biodata;
 use App\Education;
@@ -25,19 +26,21 @@ class VisitorController extends Controller
         return view('visitor.profile', compact('biodata','pendidikan'));
     }
 
-    public function store(BiodataRequest $request)
+    public function store(BiodataRequest $request, $id)
     {
         $path = '/images/biodata/';
         $pathCV = '/file/cv/';
 
-        $biodata = new Biodata();
-        if ($request->foto_pribadi || $request->cv) {
+        $biodata = Biodata::where('user_id', Sentinel::getUser()->id)->first();
+
+        if ($request->foto_pribadi && $request->cv) {
             $foto = 'biodata-' . str_random() . time() . '.' . $request->file('foto_pribadi')->getClientOriginalExtension();
             $request->foto_pribadi->move(public_path($path), $foto);
             $biodata->foto_pribadi = $foto;
+
             // CV
             $cv = 'cv-' . Sentinel::getUser()->email . str_random(5) . '.' . $request->file('cv')->getClientOriginalExtension();
-            $request->cv->move(public_path($pathCV), $cv);
+            $dd = $request->cv->move(public_path($pathCV), $cv);
             $biodata->cv = $cv;
         }
 
@@ -45,10 +48,9 @@ class VisitorController extends Controller
 
         $biodata->user_id = $user_id;
         $biodata->tempat_lahir = $request->get('tempat_lahir');
-        $biodata->tgl_lahir = $request->get('tgl_lahir');
         $biodata->keterangan = $request->get('keterangan');
         $biodata->save();
-        Alert::success('Berhasil menambah Biodata', 'Success');
+        Alert::success('Berhasil menambah biodata', 'Success');
         return back();
     }
 
@@ -94,7 +96,15 @@ class VisitorController extends Controller
 
     public function detail_job($id)
     {
+        $apply = Apply::where('user_id',Sentinel::getUser()->id)->where('job_id',$id)->get();
         $job = Job::with('company','job_types')->where('id',$id)->first();
-        return view('visitor.detail_job', compact('job'));
+        return view('visitor.detail_job', compact('job','apply'));
+    }
+
+    public function list_job()
+    {
+        $date = date('Y-m-d');
+        $job = Job::whereDate('tanggal_expired','>=',$date)->latest()->paginate(9);
+        return view('visitor.list', compact('job'));
     }
 }

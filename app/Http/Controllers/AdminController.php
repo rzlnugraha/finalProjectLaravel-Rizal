@@ -6,6 +6,8 @@ use App\Biodata;
 use App\Http\Requests\RegisterRequest;
 use App\User;
 use App\Apply;
+use App\Company;
+use App\Education;
 use App\Role;
 use App\Job;
 use Illuminate\Http\Request;
@@ -21,12 +23,30 @@ class AdminController extends Controller
             $q->whereNotIn('name', ['admin']);
         })->latest()->get();
         $pelamar = Apply::all();
-        return view('admin.index', compact('jumlah','user', 'pelamar'));
+        $perusahaan = Company::all();
+        return view('admin.index', compact('jumlah','user', 'pelamar','perusahaan'));
     }
 
-    public function edit(User $users)
+    public function edit($id)
     {
-        dd($users);
+        $user = User::whereId($id)->with('biodata')->first();
+        return view('admin.edit', compact('user'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $user->update([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+        ]);
+        $bio = Biodata::whereUserId($id);
+        $bio->update([
+            'tgl_lahir' => $request->tgl_lahir
+        ]);
+        Alert::success('Berhasil merubah data','Success');
+        return redirect()->route('admin.dataUser');
     }
 
     public function store(RegisterRequest $request)
@@ -51,9 +71,15 @@ class AdminController extends Controller
 
     public function destroy($id)
     {
-        User::destroy($id);
-        Alert::success('Berhasil menghapus data','Success');
-        return back();
+        $user = User::where('id',$id)->first()->applies()->first();
+        if ($user == null) {
+            User::destroy($id);
+            Alert::success('Berhasil menghapus data','Success');
+            return back();
+        } else {
+            Alert::success('User pernah meng apply data, tidak bisa di hapus','Error');
+            return back();
+        }
     }
 
     public function dataUser(Request $request)
@@ -82,7 +108,7 @@ class AdminController extends Controller
 
     public function userHapus()
     {
-        $user = User::onlyTrashed()->get();
+        $user = User::onlyTrashed()->latest()->get();
         return view('admin.datauser-hapus', compact('user'));
     }
 
@@ -91,6 +117,8 @@ class AdminController extends Controller
         $user = User::withTrashed()
             ->where('id', $id)
             ->restore();
+        Biodata::withTrashed()->where('user_id',$id)->restore();
+        Education::withTrashed()->where('user_id',$id)->restore();
         Alert::success('Berhasil mengembalikan data','Success');
         return back();
     }

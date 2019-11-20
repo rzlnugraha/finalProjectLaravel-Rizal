@@ -8,6 +8,10 @@ use App\Job;
 
 class Apply extends Model
 {
+    protected $fillable = [
+        'user_id','job_id','status_apply'
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

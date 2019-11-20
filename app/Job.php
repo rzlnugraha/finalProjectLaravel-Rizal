@@ -9,6 +9,8 @@ use App\Apply;
 
 class Job extends Model
 {
+    protected $table = 'userjobs';
+
     protected $fillable = [
         'tipe_job', 'company_id','nama_pekerjaan','requirements','tanggal_expired','gaji','deskripsi_pekerjaan'
     ];

@@ -13,7 +13,7 @@ class CreateJobsTable extends Migration
      */
     public function up()
     {
-        Schema::create('jobs', function (Blueprint $table) {
+        Schema::create('userjobs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('tipe_job');
             // $table->foreign('tipe_job')->on('job_types')->references('id')->onDelete('cascade');
@@ -35,6 +35,6 @@ class CreateJobsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('jobs');
+        Schema::dropIfExists('userjobs');
     }
 }

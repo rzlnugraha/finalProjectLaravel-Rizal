@@ -20,7 +20,7 @@
               <div class="card-body">
                   <h5 class="card-title">{{ Sentinel::getUser()->first_name }}</h5>
                   <p class="card-text">Email : {{ Sentinel::getUser()->email }}</p>
-                  <button type="button" class="btn btn-primary" {{ !empty($biodata) ? 'disabled' : '' }} data-toggle="modal" data-target="#exampleModal">
+                  <button type="button" class="btn btn-primary" {{ !empty($biodata->cv) ? 'disabled' : '' }} data-toggle="modal" data-target="#exampleModal">
                       Isi Biodata
                   </button>
               </div>
@@ -32,9 +32,9 @@
                   Biodata
                 </div>
                 <div class="card-body">
-                  @if (!empty($biodata))
                   <p class="card-text">Nama Lengkap : {{ Sentinel::getUser()->first_name.' '.Sentinel::getUser()->last_name }}</p>
                   <p class="card-text">Tempat dan Tanggal Lahir : {{ $biodata->tempat_lahir }}, {{ date('d F Y', strtotime($biodata->tgl_lahir)) }}</p>
+                  @if (!empty($biodata->cv))
                   <p class="card-text">Keterangan : {{ $biodata->keterangan }}
                   
                   

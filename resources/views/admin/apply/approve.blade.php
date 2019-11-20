@@ -39,7 +39,7 @@
                   <th>No</th>
                   <th>Nama Pelamar</th>
                   <th>CV</th>
-                  <th>Apply Tanggal</th>
+                  <th>Di Approve Tanggal</th>
                   <th>Action</th>
                 </tr>
                 </thead>
@@ -54,7 +54,7 @@
                         <td>
                             <a target="_blank" href="{{ url('file/cv/'.$item->user->biodata->cv) }}">CV {{ $item->user->first_name }}</a>
                         </td>
-                        <td>{{ date('d F Y / H:i:s', strtotime($item->created_at)) }}</td>
+                        <td>{{ date('d F Y / H:i:s', strtotime($item->updated_at)) }}</td>
                         <td colspan="3" align="center">
                           <ul class="list-inline">
                             <li class="list-inline-item">

@@ -44,6 +44,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($users) {
+            foreach ($users->biodata()->get() as $biodata) {
+                $biodata->delete();
+            }
+        });
+    }
+
     public function roles()
     {
         return $this->BelongsToMany(Role::class, 'role_users');
@@ -51,7 +62,7 @@ class User extends Authenticatable
 
     public function biodata()
     {
-        return $this->hasOne(Biodata::class);
+        return $this->hasOne(Biodata::class)->withTrashed();
     }
 
     public function education()

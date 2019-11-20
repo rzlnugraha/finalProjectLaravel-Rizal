@@ -11,8 +11,8 @@ class ApplyController extends Controller
 {
     public function store(Request $request)
     {
-        $data = User::where('id',Sentinel::getUser()->id)->first()->biodata()->first()->cv;
-        if ($data == null) {
+        $data = User::where('id',Sentinel::getUser()->id)->first();
+        if ($data->biodata()->first()->cv == null) {
             Alert::error('CV Harus diisi','Error');
             return back();
         } else {

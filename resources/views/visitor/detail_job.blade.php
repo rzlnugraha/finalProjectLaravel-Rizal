@@ -197,11 +197,15 @@
             </div>
         </div>
         <br>
+        @if (count($apply) > 0)
+        <button class="btn btn-danger">Kamu sudah apply</button>
+        @else
         <form action="{{ route('apply.store') }}" method="post">
             @csrf
             <input type="hidden" name="job_id" value="{{ $job->id }}">
             <button type="submit" class="btn btn-info">Apply Job</button>
         </form>
+        @endif
     </div>
 </section>
     
