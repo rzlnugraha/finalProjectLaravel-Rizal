@@ -11,13 +11,13 @@
 <li class="nav-item"><a href="contact.html" class="nav-link">History Apply</a></li>
 @endif
 <li class="nav-item ">
-    <a href="{{ route('logout') }}" class="nav-link"
+    <a href="{{ route('logout.sentinel') }}" class="nav-link"
         onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">
         Logout
     </a>
 
-    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+    <form id="logout-form" action="{{ route('logout.sentinel') }}" method="POST" style="display: none;">
         {{ csrf_field() }}
     </form>
 </li>

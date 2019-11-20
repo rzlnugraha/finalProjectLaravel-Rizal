@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Company;
 use App\JobType;
 use App\Job;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -34,6 +35,13 @@ class AppServiceProvider extends ServiceProvider
         });
         view()->composer(['visitor.index','welcome'], function ($view) {
             $view->with('job', Job::with('company')->whereDate('tanggal_expired','>=', date('Y-m-d'))->latest()->take(6)->get());
+        });
+        view()->composer(['visitor.index','welcome'], function ($view) {
+            $view->with('kategori', DB::table('userjobs')
+                        ->join('job_types', 'job_types.id', 'userjobs.tipe_job')
+                        ->select('userjobs.tipe_job', 'job_types.job_type as tipe', DB::raw('count(*) as total'))
+                        ->groupBy('userjobs.tipe_job')
+                        ->get());
         });
     }
 }

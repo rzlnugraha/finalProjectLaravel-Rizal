@@ -17,7 +17,7 @@ class JobsController extends Controller
      */
     public function index()
     {
-        $job = Job::with('job_types')->latest()->get();
+        $job = Job::with('job_types','company')->latest()->get();
         return view('admin.job.index', compact('job'));
     }
 

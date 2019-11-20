@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\JobType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Sentinel, Alert;
+use App\Job;
 
 class HomeController extends Controller
 {
@@ -13,7 +16,7 @@ class HomeController extends Controller
      * @return void
      */
     /**
-     * Show the application dashboard.
+     * Show the application dashboard.as
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */

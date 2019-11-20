@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'HomeController@awal');
+Route::get('/', 'HomeController@awal')->name('awal');
 
 Auth::routes();
 
@@ -47,6 +47,7 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth.sentinel','hasUser']], 
     Route::post('/appycv', 'ApplyController@store')->name('apply.store');
 });
 
+Route::post('/logout.sentinel','SentinelController@logout')->name('logout.sentinel');
 Route::get('/cari-kerjaan','VisitorController@cari_kerjaan')->name('cari_kerjaan');
 Route::get('/list-job','VisitorController@list_job')->name('list-job');
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth.sentinel');

@@ -40,7 +40,6 @@
                   <th>Nama Pelamar</th>
                   <th>CV</th>
                   <th>Ditolak Tanggal</th>
-                  <th>Action</th>
                 </tr>
                 </thead>
                 @php
@@ -55,16 +54,6 @@
                             <a target="_blank" href="{{ url('file/cv/'.$item->user->biodata->cv) }}">CV {{ $item->user->first_name }}</a>
                         </td>
                         <td>{{ date('d F Y / H:i:s', strtotime($item->updated_at)) }}</td>
-                        <td colspan="3" align="center">
-                          <ul class="list-inline">
-                            <li class="list-inline-item">
-                              <a href="{{ route('manage.edit',$item->id) }}" class="btn btn-info"><i class="fa fa-edit"></i></a>
-                            </li>
-                            <li class="list-inline-item">
-                              <a href="{{ route('manage.show',$item->id) }}" class="btn btn-dark"><i class="fa fa-eye"></i></a>
-                            </li>
-                          </ul>
-                        </td>
                     </tr>
                     @endforeach
                 </tbody>

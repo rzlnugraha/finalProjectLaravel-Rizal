@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Request;
 
-class EditBiodataRequest extends FormRequest
+class EditCompanyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,14 +21,15 @@ class EditBiodataRequest extends FormRequest
      *
      * @return array
      */
-    public function rules(Request $request)
+    public function rules()
     {
-        $id = $request->id;
         return [
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$id,
-            'tgl_lahir' => 'required|date|before:-17 years'
+            'nama_perusahaan' => 'required',
+            'alamat_perusahaan' => 'required',
+            'waktu_bekerja' => 'required',
+            'jenis_industri' => 'required',
+            'deskripsi_perusahaan' => 'required',
+            'foto_perusahaan' => 'mimes:jpg,jpeg,png|max:2048'
         ];
     }
 }

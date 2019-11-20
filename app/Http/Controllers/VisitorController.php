@@ -9,6 +9,7 @@ use App\Biodata;
 use App\Education;
 use App\Http\Requests\BiodataRequest;
 use App\Http\Requests\EditBiodataRequest;
+use App\Http\Requests\UpdateBiodataRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -56,7 +57,7 @@ class VisitorController extends Controller
         return back();
     }
 
-    public function update(EditBiodataRequest $request, $id)
+    public function update(UpdateBiodataRequest $request, $id)
     {
         $path = '/images/biodata/';
         $pathCV = '/file/cv/';
@@ -66,18 +67,18 @@ class VisitorController extends Controller
         $foto_lama = public_path('images/biodata/' . $biodata->foto_pribadi);
         $cv_lama = public_path('file/cv/' . $biodata->cv);
 
-        if ($request->foto_pribadi || $request->cv) {
+        if ($request->foto_pribadi) {
             $foto = 'biodata-' . str_random() . time() . '.' . $request->file('foto_pribadi')->getClientOriginalExtension();
             $request->foto_pribadi->move(public_path($path), $foto);
-            
             if ($biodata->foto_pribadi = $foto) {
                 if (file_exists($foto_lama)) {
                     unlink($foto_lama);
                 }
             }
+        } else if ($request->cv) {
             // CV
             $cv = 'cv-' . Sentinel::getUser()->email . str_random(5) . '.' . $request->file('cv')->getClientOriginalExtension();
-            $request->foto_pribadi->move(public_path($pathCV), $cv);
+            $request->cv->move(public_path($pathCV), $cv);
             if ($biodata->cv = $cv) {
                 if (file_exists($cv_lama)) {
                     unlink($cv_lama);

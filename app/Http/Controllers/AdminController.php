@@ -8,8 +8,10 @@ use App\User;
 use App\Apply;
 use App\Company;
 use App\Education;
+use App\Http\Requests\EditBiodataRequest;
 use App\Role;
 use App\Job;
+use App\JobType;
 use Illuminate\Http\Request;
 use DataTables;
 use Sentinel, Alert;
@@ -33,7 +35,7 @@ class AdminController extends Controller
         return view('admin.edit', compact('user'));
     }
 
-    public function update(Request $request, $id)
+    public function update(EditBiodataRequest $request, $id)
     {
         $user = User::findOrFail($id);
         $user->update([
@@ -46,18 +48,12 @@ class AdminController extends Controller
             'tgl_lahir' => $request->tgl_lahir
         ]);
         Alert::success('Berhasil merubah data','Success');
-        return redirect()->route('admin.dataUser');
+        return redirect()->back();
     }
 
     public function store(RegisterRequest $request)
     {
         $id = Sentinel::findRoleByName('visitor');
-        $request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6'
-        ]);
         $user = Sentinel::registerAndActivate($request->all());
         $user->roles()->attach($id);
         $id = $user->id;
@@ -127,6 +123,7 @@ class AdminController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        return view('admin.show', compact('user'));
+        $data = Apply::where('user_id',$id)->latest()->paginate(5);
+        return view('admin.show', compact('user','data'));
     }
 }

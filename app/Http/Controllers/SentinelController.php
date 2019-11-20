@@ -92,4 +92,11 @@ class SentinelController extends Controller
             }
         }
     }
+
+    public function logout()
+    {
+        Sentinel::logout();
+        Alert::success('Terima kasih sudah menggunakan lolokeran','Success');
+        return redirect('/');
+    }
 }
