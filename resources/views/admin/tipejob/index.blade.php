@@ -52,14 +52,14 @@
                         <td colspan="3" align="center">
                           <ul class="list-inline">
                             <li class="list-inline-item">
-                              <a href="{{ route('tipejob.edit',$item->id) }}" class="btn btn-info"><i class="fa fa-eye"></i></a> |
+                              <a href="{{ route('tipejob.edit',$item->id) }}" class="btn btn-info"><i class="fa fa-edit"></i></a>
                             </li>
-                            <li class="list-inline-item">
+                            {{-- <li class="list-inline-item">
                               <form action="{{ route('tipejob.destroy',$item->id) }}" method="post">
                                 @csrf @method('delete')
                                   <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin hapus data')"><i class="fa fa-trash"></i></button>
                               </form>
-                            </li>
+                            </li> --}}
                           </ul>
                         </td>
                     </tr>

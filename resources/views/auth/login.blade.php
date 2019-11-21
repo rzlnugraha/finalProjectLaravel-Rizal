@@ -70,7 +70,7 @@
       <div class="social-auth-links text-center mb-3">
         <p>- OR -</p>
         <a href="#" class="btn btn-block btn-primary">
-          <i class="fab fa-facebook mr-2"></i> Sign in using Facebook (On Proccess)
+          <i class="fab fa-facebook mr-2"></i> Sign in usning Facebook (On Proccess)
         </a>
       </div>
       <!-- /.social-auth-links -->

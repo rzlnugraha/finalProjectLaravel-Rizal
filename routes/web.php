@@ -53,3 +53,7 @@ Route::get('signup','SentinelController@signup')->name('signup');
 Route::post('signup_store','SentinelController@signup_store')->name('signup.store');
 Route::get('signin', 'SentinelController@login')->name('signin');
 Route::post('login.store', 'SentinelController@login_store')->name('login.store');
+
+Route::post('lupa_password','SentinelController@forgot_pass')->name('reminder.store');
+Route::get('reset-password/{id}/{token}','SentinelController@edit');
+Route::post('reset-password/{id}/{token}','SentinelController@ganti')->name('reset-password');

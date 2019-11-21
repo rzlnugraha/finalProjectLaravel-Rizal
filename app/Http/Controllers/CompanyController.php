@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CompanyRequest;
+use App\Http\Requests\EditCompanyRequest;
 use Illuminate\Http\Request;
 use App\Company;
 use Alert, Sentinel;
@@ -17,7 +18,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $company = Company::all();
+        $company = Company::latest()->get();
         return view('admin.company.index', compact('company'));
     }
 
@@ -87,7 +88,7 @@ class CompanyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CompanyRequest $request, $id)
+    public function update(EditCompanyRequest $request, $id)
     {
         $path = '/images/perusahaan/';
 

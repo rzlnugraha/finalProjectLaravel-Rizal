@@ -80,7 +80,7 @@ class JobsController extends Controller
         $company = Job::findOrFail($id);
         $company->update($request->all());
         Alert::success('Berhasil merubah Job', 'Success');
-        return back();
+        return redirect()->route('jobs.index');
     }
 
     /**

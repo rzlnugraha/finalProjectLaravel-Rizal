@@ -125,11 +125,6 @@
                   <b class="d-block">{{ $job->company->alamat_perusahaan }}</b>
                 </p>
               </div>
-
-              <div class="text-center mt-5 mb-3">
-                <a href="#" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModalLong">Edit Data</a>
-                <a href="#" class="btn btn-sm btn-warning">Report contact</a>
-              </div>
             </div>
           </div>
         </div>

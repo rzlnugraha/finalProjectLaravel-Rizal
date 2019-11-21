@@ -120,6 +120,29 @@
                     <div class="timeline timeline-inverse">
                       <!-- timeline time label -->
                       <div>
+                        <div class="col-md-12">
+                          <div class="card">
+                            <div class="card-header">
+                              <h3 class="card-title">
+                                <i class="fas fa-text-width"></i>
+                                Education
+                              </h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                              <dl>
+                                <dt>Sekolah / Pendidikan</dt>
+                                <dd>{{ $user->education->sekolah.' / '.$user->education->pendidikan }}.</dd>
+                                <dt>Angkatan</dt>
+                                <dd>{{ $user->education->angkatan }}.</dd>
+                                <dd>Lulus Tahun</dd>
+                                <dt>{{ $user->education->lulus_tahun }}</dt>
+                              </dl>
+                            </div>
+                            <!-- /.card-body -->
+                          </div>
+                          <!-- /.card -->
+                        </div>
                       </div>
                     </div>
                   </div>

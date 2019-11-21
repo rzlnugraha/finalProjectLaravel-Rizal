@@ -29,7 +29,7 @@ class CompanyRequest extends FormRequest
             'waktu_bekerja' => 'required',
             'jenis_industri' => 'required',
             'deskripsi_perusahaan' => 'required',
-            'foto_perusahaan' => 'mimes:jpg,jpeg,png|max:2048'
+            'foto_perusahaan' => 'required|mimes:jpg,jpeg,png|max:2048'
         ];
     }
 }

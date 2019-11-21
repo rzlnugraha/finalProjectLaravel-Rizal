@@ -8,8 +8,9 @@ use Alert;
 use App\Biodata;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\SigninRequest;
-use Sentinel;
+use Sentinel, Event, Reminder;
 Use App\User;
+Use App\Events\ReminderEvent;
 
 class SentinelController extends Controller
 {
@@ -92,5 +93,52 @@ class SentinelController extends Controller
         Sentinel::logout();
         Alert::success('Terima kasih sudah menggunakan lolokeran','Success');
         return redirect('/');
+    }
+
+    public function edit($id, $code)
+    {
+        $user = Sentinel::findById($id);
+        if (Reminder::exists($user, $code)) {
+            return view('auth.sendpassword', [
+                'id' => $id,
+                'code' => $code
+            ]);
+        } else {
+            return redirect()->route('awal');
+        }
+    }
+
+    public function ganti($id, $code, Request $request)
+    {
+        $this->validate($request, [
+            'password' => 'required|min:6|confirmed',
+            'password_confirmation' => 'same:password'
+        ]);
+
+        $user = Sentinel::findById($id);
+        $reminder = Reminder::exists($user, $code);
+
+        if ($reminder) {
+            Alert::success('Berhasil merubah password','Success');
+            Reminder::complete($user, $code, $request->password);
+            return redirect()->route('signin');
+        } else {
+            Alert::warning('Password harus sama','Error');
+        }
+    }
+
+    public function forgot_pass(Request $request)
+    {
+        $getUser = User::where('email',$request->email)->first();
+
+        if ($getUser) {
+            $user = Sentinel::findById($getUser->id);
+            ($reminder = Reminder::exists($user)) || ($reminder = Reminder::create($user));
+            Event::dispatch(new ReminderEvent($user, $reminder));
+            Alert::success('Silahkan cek email','Success');
+        } else {
+            Alert::error('Email tidak ada','Error');
+        }
+        return view('auth.passwords.email');
     }
 }
