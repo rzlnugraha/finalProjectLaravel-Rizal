@@ -45,7 +45,7 @@ class SentinelController extends Controller
             DB::rollback();
             Alert::error($errors, 'Error');
         }
-        return back();
+        return redirect()->route('signin');
     }
 
     public function login()

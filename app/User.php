@@ -52,6 +52,9 @@ class User extends Authenticatable
             foreach ($users->biodata()->get() as $biodata) {
                 $biodata->delete();
             }
+            foreach ($users->education()->get() as $education) {
+                $education->delete();
+            }
         });
     }
 

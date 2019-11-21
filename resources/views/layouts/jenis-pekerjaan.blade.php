@@ -14,7 +14,7 @@
                     <span class="rounded">{{ $item->nama_perusahaan }}</span>
                 </div>
                 <div class="text">
-                    <h3><a href="#">{{ $item->jenis_industri }}</a></h3>
+                    <h3><a style="color:black" href="#">{{ $item->jenis_industri }}</a></h3>
                 </div>
             </div>
         </div>

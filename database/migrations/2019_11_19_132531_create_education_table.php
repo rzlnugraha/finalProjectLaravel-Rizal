@@ -15,12 +15,12 @@ class CreateEducationTable extends Migration
     {
         Schema::create('education', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->on('users')->references('id')->onDelete('cascade');
-            $table->string('sekolah');
-            $table->string('angkatan');
-            $table->string('lulus_tahun');
-            $table->string('pendidikan');
+            $table->integer('user_id')->unsigned()->nullable();
+            // $table->foreign('user_id')->on('users')->references('id')->onDelete('cascade');
+            $table->string('sekolah')->nullable();
+            $table->string('angkatan')->nullable();
+            $table->string('lulus_tahun')->nullable();
+            $table->string('pendidikan')->nullable();
             $table->timestamps();
         });
     }

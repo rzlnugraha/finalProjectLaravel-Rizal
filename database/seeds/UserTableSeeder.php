@@ -18,7 +18,7 @@ class UserTableSeeder extends Seeder
             "name" => "Admin",
         ];
 
-        // Sentinel::getRoleRepository()->createModel()->fill($role_admin)->save();
+        Sentinel::getRoleRepository()->createModel()->fill($role_admin)->save();
 
         $adminrole = Sentinel::findRoleByName('Admin');
 
@@ -29,28 +29,28 @@ class UserTableSeeder extends Seeder
             "password" => "admin"
         ];
 
-        // $adminuser = Sentinel::registerAndActivate($user_admin);
+        $adminuser = Sentinel::registerAndActivate($user_admin);
 
-        // $adminuser->roles()->attach($adminrole);
+        $adminuser->roles()->attach($adminrole);
 
-        $role_writer = [
-            "slug" => "visitor",
-            "name" => "visitor",
-        ];
+        // $role_writer = [
+        //     "slug" => "visitor",
+        //     "name" => "visitor",
+        // ];
 
-        Sentinel::getRoleRepository()->createModel()->fill($role_writer)->save();
+        // Sentinel::getRoleRepository()->createModel()->fill($role_writer)->save();
 
-        $writerrole = Sentinel::findRoleByName('visitor');
+        // $writerrole = Sentinel::findRoleByName('visitor');
 
-        $writeruser = [
-            "first_name" => "Rizal",
-            "last_name" => "Nugraha",
-            "email" => "rzlnugraha@gmail.com",
-            "password" => "password",
-        ];
+        // $writeruser = [
+        //     "first_name" => "Rizal",
+        //     "last_name" => "Nugraha",
+        //     "email" => "rzlnugraha@gmail.com",
+        //     "password" => "password",
+        // ];
 
-        $writeruser = Sentinel::registerAndActivate($writeruser);
+        // $writeruser = Sentinel::registerAndActivate($writeruser);
 
-        $writeruser->roles()->attach($writerrole);
+        // $writeruser->roles()->attach($writerrole);
     }
 }
