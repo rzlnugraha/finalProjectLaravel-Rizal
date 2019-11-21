@@ -11,7 +11,7 @@
 </div>
 <div class="form-group">
     <label for="prof" class="control-label">Profesi</label>
-    <input type="text" name="profesi" id="prof" class="form-control {{ $errors->has('profesi') ? 'is-invalid' : ''}}" placeholder="Tempat Lahir Anda" value="{{ old('profesi') ?? $biodata->profesi }}">
+    <input type="text" name="profesi" id="prof" class="form-control {{ $errors->has('profesi') ? 'is-invalid' : ''}}" placeholder="Profesi Anda Sekarang" value="{{ old('profesi') ?? $biodata->profesi }}">
     {!! $errors->first('profesi','<span class="invalid-feedback">:message</span>') !!}
 </div>
 <div class="form-group">

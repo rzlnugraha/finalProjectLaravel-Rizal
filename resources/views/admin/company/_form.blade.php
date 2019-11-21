@@ -16,7 +16,7 @@
 <div class="col-sm-12">
     <div class="form-group">
     <label>Jenis Industri</label>
-    <input type="text" name="jenis_industri" class="form-control {{ $errors->has('jenis_industri') ? 'is-invalid' : '' }}" value="{{ old('jenis_industri') ?? $company->jenis_industri}}">
+    <input type="text" name="jenis_industri" class="form-control {{ $errors->has('jenis_industri') ? 'is-invalid' : '' }}" value="{{ old('jenis_industri') ?? $company->jenis_industri}}" placeholder="Contoh : IT">
     {!! $errors->first('jenis_industri','<span class="invalid-feedback">:message</span>') !!}
     </div>
 </div>
@@ -30,7 +30,7 @@
 <div class="col-sm-12">
     <div class="form-group">
     <label>Alamat Perusahaan</label>
-    <textarea class="form-control {{ $errors->has('alamat_perusahaan') ? 'is-invalid' : '' }}" rows="3" placeholder="Keahlian yang di butuhkan" name="alamat_perusahaan" >{{ old('alamat_perusahaan') ?? $company->alamat_perusahaan }}</textarea>
+    <textarea class="form-control {{ $errors->has('alamat_perusahaan') ? 'is-invalid' : '' }}" rows="3" placeholder="Alamat Perusahaan" name="alamat_perusahaan" >{{ old('alamat_perusahaan') ?? $company->alamat_perusahaan }}</textarea>
     {!! $errors->first('alamat_perusahaan','<span class="invalid-feedback">:message</span>') !!}
     </div>
 </div>
@@ -40,6 +40,9 @@
     <input type="file" name="foto_perusahaan" class="form-control {{ $errors->has('foto_perusahaan') ? 'is-invalid' : '' }} {{ empty($company->foto_perusahaan) ? 'required' : '' }}">
     {!! $errors->first('foto_perusahaan','<span class="invalid-feedback">:message</span>') !!}
     </div>
+</div>
+<div class="col-sm-12">
+    <img src="{{ asset('images/perusahaan/'.$company->foto_perusahaan) }}" alt="" srcset="" width="250" height="300">
 </div>
 </div>
 <div class="modal-footer">

@@ -1,5 +1,5 @@
 @extends('admin.layouts.app')
-@section('title','Index')
+@section('title','Halaman Data Perusahaan')
 @push('style')
     <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset('assets') }}/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
@@ -15,7 +15,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard {{ Sentinel::getUser()->first_name }}</li>
+              <li class="breadcrumb-item active">Data Perusahaan</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -30,9 +30,16 @@
         <div class="row">
           <div class="card-body">
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#exampleModal" title="Tambah Data">
-              <i class="fa fa-plus"></i>
-            </button>
+            <ul class="list-inline">
+              <li class="list-inline-item">
+                <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#exampleModal" title="Tambah Data">
+                  <i class="fa fa-plus"></i>
+                </button>
+              </li>
+              <li class="list-inline-item">
+                <a style="margin-bottom:16px" href="{{ route('company.hapus') }}" class="btn btn-danger">Data yang dihapus</a>
+              </li>
+            </ul>
               <table id="data-job" class="table table-bordered table-hover">
                 <thead>
                 <tr>
@@ -53,7 +60,7 @@
                     <td>{{ $item->nama_perusahaan }}</td>
                     <td>{{ $item->alamat_perusahaan }}</td>
                     <td>{{ $item->jenis_industri }}</td>
-                    <td>
+                    <td width="200px">
                       <ul class="list-inline">
                         <li class="list-inline-item"><a href="{{ route('company.show',$item->id) }}" class="btn btn-primary"><i class="fa fa-eye"></i></a></li>
                         <li class="list-inline-item"><a href="{{ route('company.edit',$item->id) }}" class="btn btn-info"><i class="fa fa-edit"></i></a></li>

@@ -1,5 +1,5 @@
 @extends('admin.layouts.app')
-@section('title','Index')
+@section('title','Data User')
 @push('style')
     <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset('assets') }}/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
@@ -15,7 +15,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard {{ Sentinel::getUser()->first_name }}</li>
+              <li class="breadcrumb-item active">Data User</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -31,7 +31,7 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">{{ Sentinel::getUser()->id }}</h3>
+              <h3 class="card-title">Halaman Data User</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">

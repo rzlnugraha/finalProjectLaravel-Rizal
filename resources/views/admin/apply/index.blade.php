@@ -1,5 +1,5 @@
 @extends('admin.layouts.app')
-@section('title','Index')
+@section('title','Halaman Manage Apply')
 @push('style')
     <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset('assets') }}/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
@@ -15,7 +15,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard {{ Sentinel::getUser()->first_name }}</li>
+              <li class="breadcrumb-item active">Data Waiting</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -40,6 +40,7 @@
                   <th>Nama Pelamar</th>
                   <th>CV</th>
                   <th>Apply Tanggal</th>
+                  <th>Action</th>
                 </tr>
                 </thead>
                 @php
@@ -54,6 +55,9 @@
                             <a target="_blank" href="{{ url('file/cv/'.$item->user->biodata->cv) }}">CV {{ $item->user->first_name }}</a>
                         </td>
                         <td>{{ date('d F Y / H:i:s', strtotime($item->created_at)) }}</td>
+                        <td>
+                          <a href="{{ route('manage.edit',$item->id) }}" class="btn btn-primary"><i class="fa fa-edit"></i></a>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>

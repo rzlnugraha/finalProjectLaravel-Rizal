@@ -12,6 +12,8 @@ use App\Http\Requests\EditBiodataRequest;
 use App\Http\Requests\UpdateBiodataRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
+
 
 class VisitorController extends Controller
 {
@@ -125,5 +127,23 @@ class VisitorController extends Controller
                 'status' => 'success'
             ]);
         }
+    }
+
+    public function history(Request $request)
+    {
+        // if (!empty($request->cari)) {
+        //     $data = Apply::where('user_id',Sentinel::getUser()->id)->with('job','user')->latest()->get();
+        //     $view = (String) view('visitor.data-applyan', compact('data'))->render();
+        //     return response()->json([
+        //         'view' => $view,
+        //         'success' => 'success'
+        //     ]);
+        // }
+        $data = Apply::where('user_id',Sentinel::getUser()->id)->with('job','user')->latest()->get();
+        return view('visitor.history', compact('data'));
+    }
+
+    public function cariApply(Request $request)
+    {
     }
 }

@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\JobRequest;
-use App\Job;
-use Alert;
-use App\Apply;
-use App\Company;
+use App\Education;
+use App\Http\Requests\EducationRequest;
 use Illuminate\Http\Request;
+use Alert;
 
-class JobsController extends Controller
+class EducationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +16,7 @@ class JobsController extends Controller
      */
     public function index()
     {
-        $job = Job::with('job_types','company')->latest()->get();
-        return view('admin.job.index', compact('job'));
+        //
     }
 
     /**
@@ -38,10 +35,10 @@ class JobsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(JobRequest $request)
+    public function store(EducationRequest $request)
     {
-        Job::create($request->all());
-        Alert::success('Berhasil menambah Job', 'Success');
+        Education::create($request->all());
+        Alert::success('Berhasil menambah data pendidikan','Success');
         return back();
     }
 
@@ -51,10 +48,9 @@ class JobsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Job $job)
+    public function show($id)
     {
-        $apply = Apply::where('job_id',$job->id)->with('user','job')->paginate(5);
-        return view('admin.job.show', compact('job','apply'));
+        //
     }
 
     /**
@@ -63,9 +59,9 @@ class JobsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Job $job)
+    public function edit($id)
     {
-        return view('admin.job.edit', compact('job'));
+        //
     }
 
     /**
@@ -75,11 +71,11 @@ class JobsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(JobRequest $request, $id)
+    public function update(EducationRequest $request, $id)
     {
-        $company = Job::findOrFail($id);
-        $company->update($request->all());
-        Alert::success('Berhasil merubah Job', 'Success');
+        $data = Education::find($id);
+        $data->update($request->all());
+        Alert::success('Success update your data','Success');
         return back();
     }
 
@@ -91,14 +87,6 @@ class JobsController extends Controller
      */
     public function destroy($id)
     {
-        $cek = Apply::where('job_id',$id)->get();
-        if (count($cek) > 0) {
-            Alert::success('Sudah pernah ada yang ngelamar ke sini, nanti datanya ilang','Jangan Di Hapus');
-            return back();
-        } else {
-            Job::destroy($id);
-            Alert::success('Berhasil menghapus data','Success');
-            return back();
-        }
+        //
     }
 }

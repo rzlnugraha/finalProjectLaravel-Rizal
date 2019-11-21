@@ -1,5 +1,5 @@
 @extends('admin.layouts.app')
-@section('title','Index')
+@section('title','Halaman '.$company->nama_perusahaan)
 @push('style')
     
 @endpush
@@ -14,7 +14,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard {{ Sentinel::getUser()->first_name }}</li>
+              <li class="breadcrumb-item active">{{ $company->nama_perusahaan }}</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->

@@ -61,17 +61,13 @@
                 </div>
                 <div class="card-body">
                   @if (!empty($pendidikan))
-                  <p class="card-text">Nama Lengkap : {{ Sentinel::getUser()->first_name.' '.Sentinel::getUser()->last_name }}</p>
-                  <p class="card-text">Tempat dan Tanggal Lahir : {{ $biodata->tempat_lahir }}, {{ date('d F Y', strtotime($biodata->tgl_lahir)) }}</p>
-                  <p class="card-text">Keterangan : {{ $biodata->keterangan }}
-                  
-                  
-                  </p>
-                  <p class="card-text"><embed src="{{ url('/file/cv/'.$biodata->cv) }}" type="application/pdf" width="400" height="300"></p>
-                  <a style="color: black;" href="{{ url('/file/cv/'.$biodata->cv) }}">{{ $biodata->cv }}</a><br><br>
-                  <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modalEdit">Edit Biodata</a>
+                  <p class="card-text">Sekolah / Instansi : {{ $pendidikan->sekolah }}</p>
+                  <p class="card-text">Angkatan : {{ $pendidikan->angkatan }}</p>
+                  <p class="card-text">Lulus Tahun : {{ $pendidikan->lulus_tahun }}</p>
+                  <p class="card-text">Pendidikan : {{ $pendidikan->pendidikan }}</p>
+                  <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modalEditPendidikan">Edit Data Pendidikan</a>
                   @else
-                  <p class="card-text">Silakan isi pendidikan (Opsional)</p>
+                  <p class="card-text">Silakan isi pendidikan terakhir(Opsional)</p>
                   <p class="card-text"><a href="" data-toggle="modal" data-target="#modalPendidikan" class="btn btn-success" {{ !empty($pendidkan) ? 'disabled' : '' }}>Isi Pendidikan</a></p>
                   @endif
                 </div>

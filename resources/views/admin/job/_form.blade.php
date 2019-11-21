@@ -4,9 +4,8 @@
         <div class="form-group">
             <label>Jenis Pekerjaan</label>
             <select class="form-control {{ $errors->has('tipe_job') ? 'is-invalid' : '' }}" name="tipe_job">
-                <option value="" selected>Pilih</option>
                 @foreach ($tipe_job->get() as $item)
-                <option value="{{ $item->id }}">{{ $item->job_type }}</option>
+                <option {{ $item->id == $job->tipe_job ? 'selected' : '' }} value="{{ $item->id }}">{{ $item->job_type }}</option>
                 @endforeach
             </select>
             {!! $errors->first('tipe_job','<span class="invalid-feedback">:message</span>') !!}
@@ -19,7 +18,7 @@
             <select class="form-control {{ $errors->has('company_id') ? 'is-invalid' : '' }}" name="company_id">
                 <option value="" selected>Pilih</option>
                 @foreach ($company->get() as $item)
-                <option value="{{ $item->id }}">{{ $item->nama_perusahaan }}</option>
+                <option {{ $item->id == $job->company_id ? 'selected' : '' }} value="{{ $item->id }}">{{ $item->nama_perusahaan }}</option>
                 @endforeach
             </select>
             {!! $errors->first('company_id','<span class="invalid-feedback">:message</span>') !!}

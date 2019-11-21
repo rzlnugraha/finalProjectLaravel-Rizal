@@ -53,12 +53,10 @@
                   </div>
                 </div>
                 @php
-                    $fdate=date('Y-m-d');
-                    $tdate=$job->tanggal_expired;
-
-                    $to = \Carbon\Carbon::createFromFormat('Y-m-d', $fdate);
-                    $from = \Carbon\Carbon::createFromFormat('Y-m-d', $tdate);
-                    $diff_in_days = $to->diffInDays($from);
+                $now = time(); // or your date as well
+                $your_date = strtotime($job->tanggal_expired);
+                $datediff = $your_date - $now;
+                $hasil = round($datediff / (60 * 60 * 24));
                 @endphp 
                 <div class="col-12 col-sm-4">
                   <div class="info-box bg-light">
@@ -72,7 +70,15 @@
                   <div class="info-box bg-light">
                     <div class="info-box-content">
                       <span class="info-box-text text-center text-muted">Sisa Tutup Lowangan</span>
-                      <span class="info-box-number text-center text-muted mb-0">{{ $diff_in_days != 0 ? $diff_in_days.' Hari' : 'Tutup' }}<span>
+                      <span class="info-box-number text-center text-muted mb-0">
+                      @if ($hasil > 0)
+                          {{ $hasil.' hari lagi' }}
+                      @elseif ($hasil < 0)
+                          Hari terkahir
+                      @else
+                          Tutup
+                      @endif
+                      <span>
                     </div>
                   </div>
                 </div>
@@ -80,7 +86,7 @@
               <div class="row">
                 <div class="col-12">
                   <h4>Recent Activity</h4>
-                  @forelse ($apply as $data)
+                  @foreach ($apply as $data)
                     <div class="post">
                       <div class="user-block">
                         <img class="img-circle img-bordered-sm" src="{{ asset('images/biodata/'.$data->user->biodata->foto_pribadi) }}" alt="user image">
@@ -95,12 +101,11 @@
                       </p>
 
                       <p>
-                        <a href="{{ asset('file/cv/'.$data->user->biodata->cv) }}" class="link-black text-sm"><i class="fas fa-link mr-1"></i> {{ $data->user->biodata->cv }}</a>
+                        <a target="_blank" href="{{ asset('file/cv/'.$data->user->biodata->cv) }}" class="link-black text-sm"><i class="fas fa-link mr-1"></i> {{ $data->user->biodata->cv }}</a>
                       </p>
                     </div>
-                  @empty
-                      
-                  @endforelse
+                  @endforeach
+                  {{ $apply->links() }}
                 </div>
               </div>
             </div>

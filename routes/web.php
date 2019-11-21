@@ -1,16 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/', 'HomeController@awal')->name('awal');
 
 Auth::routes();
@@ -27,11 +16,16 @@ Route::group(['middleware' => ['auth.sentinel','hasAdmin']], function () {
     Route::get('/admin.userhapus','AdminController@userHapus')->name('admin.userHapus');
     Route::post('/admin.useraktif/{id}','AdminController@userAktif')->name('admin.userAktif');
     Route::put('/admin.updateuser/{id}', 'AdminController@update')->name('admin.update');
-
+    
     // Controller Resource
     Route::resource('jobs', 'JobsController');
     Route::resource('tipejob', 'TipeJobController');
+    // Company
     Route::resource('company', 'CompanyController');
+    Route::get('companyhapus','CompanyController@datahapus')->name('company.hapus');
+    Route::post('/company.restore/{id}','CompanyController@restore')->name('company.restore');
+
+    // Manage Apply
     Route::resource('manage', 'ManageApplyController');
     Route::get('/manage.approve','ManageApplyController@approve')->name('manage.approve');
     Route::get('/manage.reject','ManageApplyController@reject')->name('manage.reject');
@@ -45,6 +39,10 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth.sentinel','hasUser']], 
     Route::get('/detail-job/{id}','VisitorController@detail_job')->name('detail_job');
     // Apply CV
     Route::post('/appycv', 'ApplyController@store')->name('apply.store');
+    // Pendidikan
+    Route::resource('education', 'EducationController')->only(['store','update']);
+    Route::get('/history','VisitorController@history')->name('history');
+    Route::get('/cari-apply','VisitorController@cariApply')->name('cariApply');
 });
 
 Route::post('/logout.sentinel','SentinelController@logout')->name('logout.sentinel');

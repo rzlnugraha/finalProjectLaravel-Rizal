@@ -6,6 +6,7 @@ use App\Http\Requests\CompanyRequest;
 use Illuminate\Http\Request;
 use App\Company;
 use Alert, Sentinel;
+use App\Job;
 
 class CompanyController extends Controller
 {
@@ -65,7 +66,7 @@ class CompanyController extends Controller
      */
     public function show(Company $company)
     {
-        dd($company);
+        return view('admin.company.show', compact('company'));
     }
 
     /**
@@ -120,10 +121,31 @@ class CompanyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    protected function destroy($id)
     {
-        Company::destroy($id);
-        Alert::success('Berhasil menghapus data','Success');
-        return redirect()->route('company.index');
+        $data = Job::where('company_id',$id)->get();
+        if (count($data) > 0) {
+            Alert::success('Gagal menghapus, sudah pernah menginputkan pekerjaan','Error');
+            return back();
+        } else if (count($data) == 0) {
+            Company::destroy($id);
+            Alert::success('Berhasil menghapus data','Success');
+            return redirect()->route('company.index');
+        } else {
+            return back();
+        }
+    }
+
+    public function datahapus()
+    {
+        $company = Company::onlyTrashed()->latest()->get();
+        return view('admin.company.datahapus', compact('company'));
+    }
+
+    public function restore($id)
+    {
+        $user = Company::withTrashed()->where('id', $id)->restore();
+        Alert::success('Berhasil mengembalikan data', 'Success');
+        return back();
     }
 }

@@ -22,8 +22,7 @@
             @else
                 Halo
             @endif
-            Your Dream
-            <br><span>Job is Waiting</span></h1>
+            <br><span>Jangan Nganggur Terus, Cape!</span></h1>
             @include('layouts._toast')
           </h3>
         </div>

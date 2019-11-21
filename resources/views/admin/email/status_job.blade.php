@@ -72,14 +72,14 @@
     <td>{{ $job->user->first_name.' '.$job->user->last_name }}</td>
     <td>{{ $job->job->nama_pekerjaan }}</td>
     <td>{{ date('d F Y', strtotime($job->created_at)) }}</td>
-    <td>{{ $job->status_apply }}</td>
+    <td>{{ strtoupper($job->status_apply) }}</td>
     </tr>
 </tbody>
 </table>
 @if ($job->status_apply == 'approve')
 <center><h2>Silakan anda datang ke kantor {{ $job->job->company->nama_perusahaan }}</h2></center>
 <center><h4>Alamat di {{ $job->job->company->alamat_perusahaan }}</h4></center>
-<h1>Pada tanggal {{ date('Y-m-d', strtotime('+7 days', strtotime($job->created_at))) }}</h1>
+<h1>Pada tanggal {{ date('d F Y', strtotime('+7 days', strtotime($job->created_at))) }}</h1>
 @else
-<center><h1>Maaf lamaran anda butut</h1></center>
+<center><h1>Maaf lamaran anda ditolak, coba ke perusahaan lain!</h1></center>
 @endif

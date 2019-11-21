@@ -68,27 +68,21 @@ class SentinelController extends Controller
             'email' => $req->email
         ];
         $cek = User::where('email',$req->email)->first();
-        if ($cek == null) {
-            Alert::error('Kamu belom pernah daftar ya?');
+        if ($cek == null ) {
+            Alert::error('Akun anda tidak aktif/tidak ada, silakan hubungi admin');
             return back();
         } else {
-            $user = Sentinel::findByCredentials($credentials);
-            if ($user->deleted_at != null) {
-                Alert::error('Akun anda tidak aktif, silakan hubungi admin','Error');
-                return back();
-            } else {
-                if ($user = Sentinel::authenticate($req->all())) { // Buat cek ada user atau engganya di tabel user
-                    Alert::success('Assalamualaikum ' . $user->first_name . ' ' . $user->last_name, 'Masuk');
-                    if (Sentinel::getUser()->roles()->first()->slug == 'admin') {
-                        Alert::success('Happy ' . date('l'), 'Welcome Admin');
-                        return redirect()->route('admin.index');
-                    } else {
-                        return redirect()->route('visitor.index');
-                    }
+            if ($user = Sentinel::authenticate($req->all())) { // Buat cek ada user atau engganya di tabel user
+                Alert::success('Assalamualaikum ' . $user->first_name . ' ' . $user->last_name, 'Masuk');
+                if (Sentinel::getUser()->roles()->first()->slug == 'admin') {
+                    Alert::success('Happy ' . date('l'), 'Welcome Admin');
+                    return redirect()->route('admin.index');
                 } else {
-                    Alert::error('Gagal, Password atau Email salah!', 'Error');
-                    return view('auth.login');
+                    return redirect()->route('visitor.index');
                 }
+            } else {
+                Alert::error('Gagal, Password atau Email salah!', 'Error');
+                return back();
             }
         }
     }

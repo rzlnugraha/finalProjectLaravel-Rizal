@@ -14,6 +14,7 @@ use App\Job;
 use App\JobType;
 use Illuminate\Http\Request;
 use DataTables;
+use Illuminate\Support\Facades\DB;
 use Sentinel, Alert;
 
 class AdminController extends Controller
@@ -26,7 +27,18 @@ class AdminController extends Controller
         })->latest()->get();
         $pelamar = Apply::all();
         $perusahaan = Company::all();
-        return view('admin.index', compact('jumlah','user', 'pelamar','perusahaan'));
+        // Data Chart
+        $array = array();
+        $array2 = array();
+        $chart = DB::table('applies')
+                        ->select('status_apply', DB::raw('count(*) as total'))
+                        ->groupBy('status_apply')
+                        ->get();
+        foreach ($chart as $key) {
+            $array[] = $key->status_apply;
+            $array2[] = $key->total;
+        }
+        return view('admin.index', compact('jumlah','user', 'pelamar','perusahaan','array','array2'));
     }
 
     public function edit($id)

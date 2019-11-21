@@ -37,6 +37,9 @@ class AppServiceProvider extends ServiceProvider
             $view->with('job', Job::with('company')->whereDate('tanggal_expired','>=', date('Y-m-d'))->latest()->take(6)->get());
         });
         view()->composer(['visitor.index','welcome'], function ($view) {
+            $view->with('company', Company::inRandomOrder()->take(6)->get());
+        });
+        view()->composer(['visitor.index','welcome'], function ($view) {
             $view->with('kategori', DB::table('userjobs')
                         ->join('job_types', 'job_types.id', 'userjobs.tipe_job')
                         ->select('userjobs.tipe_job', 'job_types.job_type as tipe', DB::raw('count(*) as total'))
