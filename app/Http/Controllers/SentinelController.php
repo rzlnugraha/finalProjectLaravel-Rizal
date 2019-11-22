@@ -87,8 +87,7 @@ class SentinelController extends Controller
                 if (Sentinel::getUser()->roles()->first()->slug == 'admin') {
                     Alert::success('Happy ' . date('l'), 'Welcome Admin');
                     return redirect()->route('admin.index');
-                } elseif (Sentinel::getUser()->roles()->first()->slug == 'visitor') {
-                    dd(1);
+                } else {
                     return redirect()->route('visitor.index');
                 }
             } else {
