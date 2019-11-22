@@ -30,6 +30,7 @@ class SentinelController extends Controller
 
     public function signup_store(RegisterRequest $req)
     {
+        dd(1);
         DB::beginTransaction();
         try {
             $role = Sentinel::findRoleBySlug('visitor');
@@ -41,7 +42,6 @@ class SentinelController extends Controller
                 'password' => $req->password,
             ];
             $user = Sentinel::registerAndActivate($credentials);
-            dd($user);
             $user->save();
             $id = $user->id;
             $tgl_lahir = $req->tgl_lahir;
