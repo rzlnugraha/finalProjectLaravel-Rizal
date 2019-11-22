@@ -77,7 +77,6 @@ class SentinelController extends Controller
         $credentials = [
             'email' => $req->email
         ];
-        dd($credentials);
         $cek = User::where('email',$req->email)->first();
         if ($cek == null ) {
             Alert::error('Akun anda tidak aktif/tidak ada, silakan hubungi admin');
@@ -85,6 +84,7 @@ class SentinelController extends Controller
         } else {
             if ($user = Sentinel::authenticate($req->all())) { // Buat cek ada user atau engganya di tabel user
                 Alert::success('Assalamualaikum ' . $user->first_name . ' ' . $user->last_name, 'Masuk');
+                dd(Sentinel::getUser()->roles()->first()->slug);
                 if (Sentinel::getUser()->roles()->first()->slug == 'admin') {
                     Alert::success('Happy ' . date('l'), 'Welcome Admin');
                     return redirect()->route('admin.index');
