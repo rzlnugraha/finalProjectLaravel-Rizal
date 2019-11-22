@@ -48,7 +48,7 @@ class AppServiceProvider extends ServiceProvider
                         ->groupBy('userjobs.tipe_job', 'job_types.job_type')
                         ->get());
         });
-        if (env('https',true)) {
+        if (env('https',false)) {
             \URL::forceScheme('https');
         }
     }

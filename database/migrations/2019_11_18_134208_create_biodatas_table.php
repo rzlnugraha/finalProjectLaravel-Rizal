@@ -16,11 +16,11 @@ class CreateBiodatasTable extends Migration
         Schema::create('biodatas', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->on('users')->references('id')->onDelete('cascade');
+            // $table->foreign('user_id')->on('users')->references('id')->onDelete('cascade');
             $table->string('tempat_lahir')->nullable();
             $table->date('tgl_lahir')->nullable();
             $table->string('foto_pribadi')->nullable();
-            $table->string('cv');
+            $table->string('cv')->nullable();
             $table->text('keterangan')->nullable();
             $table->timestamps();
         });
