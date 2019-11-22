@@ -42,7 +42,9 @@ class AppServiceProvider extends ServiceProvider
         view()->composer(['visitor.index','welcome'], function ($view) {
             $view->with('kategori', DB::table('userjobs')
                         ->join('job_types', 'job_types.id', 'userjobs.tipe_job')
-                        ->select('userjobs.tipe_job', 'job_types.job_type as tipe', DB::raw('count(*) as total'))
+                        ->select('userjobs.tipe_job','job_types.job_type as tipe', DB::raw('count(*) as total'))
+                        ->whereDate('userjobs.tanggal_expired','>=', date('Y-m-d'))
+                        ->where('userjobs.deleted_at',null)
                         ->groupBy('userjobs.tipe_job')
                         ->get());
         });

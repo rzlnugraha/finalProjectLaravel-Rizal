@@ -101,4 +101,17 @@ class JobsController extends Controller
             return back();
         }
     }
+
+    public function job_hapus()
+    {
+        $data = Job::onlyTrashed()->latest()->get();
+        return view('admin.job.job_hapus', compact('data'));
+    }
+
+    public function job_restore($id)
+    {
+        $user = Job::withTrashed()->where('id', $id)->restore();
+        Alert::success('Berhasil mengembalikan data', 'Success');
+        return back();
+    }
 }

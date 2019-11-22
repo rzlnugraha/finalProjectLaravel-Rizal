@@ -19,6 +19,10 @@ Route::group(['middleware' => ['auth.sentinel','hasAdmin']], function () {
     
     // Controller Resource
     Route::resource('jobs', 'JobsController');
+    Route::get('job_hapus','JobsController@job_hapus')->name('job_hapus');
+    Route::post('job_restore/{id}','JobsController@job_restore')->name('job_restore');
+
+    // Tipe Job
     Route::resource('tipejob', 'TipeJobController');
     // Company
     Route::resource('company', 'CompanyController');

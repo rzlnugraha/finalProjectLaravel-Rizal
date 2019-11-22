@@ -33,6 +33,7 @@
             <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#exampleModal" title="Tambah Data">
               <i class="fa fa-plus"></i>
             </button>
+            <a style="margin-bottom:16px" href="{{ route('job_hapus') }}" class="btn btn-danger">Data Job Yang Dihapus</a>
               <table id="data-job" class="table table-bordered table-hover">
                 <thead>
                 <tr>

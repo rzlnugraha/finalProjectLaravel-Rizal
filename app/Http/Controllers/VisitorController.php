@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Alert, Session, Sentinel;
+use Alert, Session, Sentinel, DB;
 use App\Apply;
 use App\User, App\Job;
 use App\Biodata;
@@ -112,7 +112,7 @@ class VisitorController extends Controller
     {
         $date = date('Y-m-d');
         $semua = Job::whereDate('tanggal_expired','>=',$date)->get();
-        $data = Job::whereDate('tanggal_expired','>=',$date)->latest()->paginate(9);
+        $data = Job::whereDate('tanggal_expired','>=',$date)->paginate(9);
         return view('visitor.list', compact('data','semua'));
     }
     
