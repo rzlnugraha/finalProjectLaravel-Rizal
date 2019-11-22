@@ -84,7 +84,7 @@ class SentinelController extends Controller
         } else {
             if ($user = Sentinel::authenticate($req->all())) { // Buat cek ada user atau engganya di tabel user
                 Alert::success('Assalamualaikum ' . $user->first_name . ' ' . $user->last_name, 'Masuk');
-                dd(Sentinel::getUser()->roles()->first()->slug);
+                dd(Sentinel::getUser()->roles()->first());
                 if (Sentinel::getUser()->roles()->first()->slug == 'admin') {
                     Alert::success('Happy ' . date('l'), 'Welcome Admin');
                     return redirect()->route('admin.index');
