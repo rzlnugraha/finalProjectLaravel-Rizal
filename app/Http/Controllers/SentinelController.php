@@ -49,7 +49,7 @@ class SentinelController extends Controller
             $biodata->tgl_lahir = $tgl_lahir;
             $biodata->save();
             $user->roles()->attach($role_id);
-            Alert::success('Berhasil mendaftar', 'Success');
+            // Alert::success('Berhasil mendaftar', 'Success');
             DB::commit();
         } catch (\Throwable $errors) {
             DB::rollback();
