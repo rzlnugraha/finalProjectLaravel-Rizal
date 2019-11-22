@@ -45,7 +45,7 @@ class AppServiceProvider extends ServiceProvider
                         ->select('userjobs.tipe_job','job_types.job_type as tipe', DB::raw('count(*) as total'))
                         ->whereDate('userjobs.tanggal_expired','>=', date('Y-m-d'))
                         ->where('userjobs.deleted_at',null)
-                        ->groupBy('userjobs.tipe_job')
+                        ->groupBy('userjobs.tipe_job', 'job_types.job_type')
                         ->get());
         });
     }
