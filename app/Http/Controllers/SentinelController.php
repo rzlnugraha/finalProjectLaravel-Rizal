@@ -77,6 +77,7 @@ class SentinelController extends Controller
         $credentials = [
             'email' => $req->email
         ];
+        dd($credentials);
         $cek = User::where('email',$req->email)->first();
         if ($cek == null ) {
             Alert::error('Akun anda tidak aktif/tidak ada, silakan hubungi admin');
