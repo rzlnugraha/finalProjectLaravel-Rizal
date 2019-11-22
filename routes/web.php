@@ -53,7 +53,7 @@ Route::post('/logout.sentinel','SentinelController@logout')->name('logout.sentin
 Route::get('/cari-kerjaan','VisitorController@cari_kerjaan')->name('cari_kerjaan');
 Route::get('/list-job','VisitorController@list_job')->name('list-job');
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth.sentinel');
-Route::get('signup','SentinelController@signup')->name('signup')->middleware('auth.sentinel');
+Route::get('signup','SentinelController@signup')->name('signup');
 Route::post('signup_store','SentinelController@signup_store')->name('signup.store');
 Route::get('signin', 'SentinelController@login')->name('signin');
 Route::post('login.store', 'SentinelController@login_store')->name('login.store');

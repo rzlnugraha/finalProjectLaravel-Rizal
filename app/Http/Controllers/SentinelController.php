@@ -16,7 +16,16 @@ class SentinelController extends Controller
 {
     public function signup()
     {
-        return view('auth.register');
+        if ($user = Sentinel::check()) {
+            Alert::success("Kamu sedang login mang $user->email", 'Udah login');
+            if (Sentinel::getUser()->roles()->first()->slug == 'admin') {
+                return redirect()->route('admin.index');
+            } else {
+                return redirect()->route('visitor.index');
+            }
+        } else {
+            return view('auth.register');
+        }
     }
 
     public function signup_store(RegisterRequest $req)
