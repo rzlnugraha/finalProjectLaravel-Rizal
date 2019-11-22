@@ -33,7 +33,6 @@ class SentinelController extends Controller
         DB::beginTransaction();
         try {
             $role = Sentinel::findRoleBySlug('visitor');
-            dd($role);
             $role_id = $role->id;
             $credentials = [
                 'first_name' => $req->first_name,
