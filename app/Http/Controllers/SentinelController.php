@@ -41,6 +41,7 @@ class SentinelController extends Controller
                 'password' => $req->password,
             ];
             $user = Sentinel::registerAndActivate($credentials);
+            dd($user);
             $user->save();
             $id = $user->id;
             $tgl_lahir = $req->tgl_lahir;
