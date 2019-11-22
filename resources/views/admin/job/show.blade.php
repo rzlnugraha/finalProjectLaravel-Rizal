@@ -74,7 +74,7 @@
                       @if ($hasil > 0)
                           {{ $hasil.' hari lagi' }}
                       @elseif ($hasil < 0)
-                          Hari terkahir
+                          Hari terkahir / Tutup
                       @else
                           Tutup
                       @endif

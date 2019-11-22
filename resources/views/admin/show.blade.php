@@ -114,6 +114,8 @@
                     </div>
                     <!-- /.post -->
                   </div>
+                  @if (!empty($education))
+                      
                   <!-- /.tab-pane -->
                   <div class="tab-pane" id="timeline">
                     <!-- The timeline -->
@@ -147,6 +149,7 @@
                     </div>
                   </div>
                   <!-- /.tab-pane -->
+                  @endif
 
                   <div class="tab-pane" id="settings">
                     <form class="form-horizontal" action="{{ route('admin.update',$user->id) }}" method="post">

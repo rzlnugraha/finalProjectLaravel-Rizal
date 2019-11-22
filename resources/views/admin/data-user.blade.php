@@ -123,6 +123,7 @@
             responsive: true,
             processing: true,
             serverSide : true,
+            sorting : false,
             ajax : "{{ route('admin.dataUser') }}",
             columns : [
                 {data: 'DT_RowIndex', name: 'id'},

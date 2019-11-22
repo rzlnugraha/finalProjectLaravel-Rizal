@@ -95,7 +95,7 @@ class AdminController extends Controller
         if ($request->ajax()) {
             $data = User::whereHas('roles', function ($q) {
                 $q->whereNotIn('name', ['admin']);
-            })->latest()->get();
+            })->orderBy('created_at','desc')->get();
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
@@ -111,7 +111,7 @@ class AdminController extends Controller
         }
         $data = User::whereHas('roles', function ($q) {
             $q->whereNotIn('name', ['admin']);
-        })->latest()->get();
+        })->orderBy('created_at','desc')->get();
         return view('admin.data-user', compact('data'));
     }
 

@@ -38,6 +38,8 @@
                 <tr>
                   <th>No</th>
                   <th>Nama Pelamar</th>
+                  <th>Nama Perusahaan</th>
+                  <th>Nama Pekerjaan</th>
                   <th>CV</th>
                   <th>Di Approve Tanggal</th>
                 </tr>
@@ -50,6 +52,8 @@
                     <tr>
                         <td width="15">{{ $no++ }}</td>
                         <td>{{ $item->user->first_name.' '.$item->user->last_name }}</td>
+                        <td>{{ $item->job->company->nama_perusahaan }}</td>
+                        <td>{{ $item->job->nama_pekerjaan }}</td>
                         <td>
                             <a target="_blank" href="{{ url('file/cv/'.$item->user->biodata->cv) }}">CV {{ $item->user->first_name }}</a>
                         </td>
