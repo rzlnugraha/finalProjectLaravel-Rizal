@@ -45,8 +45,11 @@ class AppServiceProvider extends ServiceProvider
                         ->select('userjobs.tipe_job','job_types.job_type as tipe', DB::raw('count(*) as total'))
                         ->whereDate('userjobs.tanggal_expired','>=', date('Y-m-d'))
                         ->where('userjobs.deleted_at',null)
-                        ->groupBy('userjobs.tipe_job', 'job_types.job_type')
+                        ->groupBy('userjobs.tipe_job', 'job_types.job_type as tipe')
                         ->get());
         });
+        if (env('https',true)) {
+            \URL::forceScheme('https');
+        }
     }
 }
